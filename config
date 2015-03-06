@@ -1,0 +1,288 @@
+# i3 config file (v4)
+#
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# alt key is the key !
+set $mod Mod1
+
+# workspace definition
+set $wsp1 "1: main"
+set $wsp2 "2: web"
+set $wsp3 "3: com"
+set $wsp4 "4: media"
+set $wsp5 "5: virt"
+set $wsp6 "6: irc"
+set $wsp7 7
+set $wsp8 "8: office"
+set $wsp9 9
+set $wsp10 10
+
+# fonts
+font xft:Terminus, FontAwesome 8
+# default:
+# font pango:DejaVu Sans Mono 8
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+# start a terminal
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+
+# kill focused window
+bindsym $mod+Shift+a kill
+
+# start dmenu (a program launcher)
+# bindsym $mod+p exec dmenu_run
+
+#bindsym $mod+p exec --no-startup-id j4-dmenu-desktop
+bindsym $mod+p exec --no-startup-id "j4-dmenu-desktop --dmenu='dmenu -i -b -fn '-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*''"
+
+# There also is the (new) i3-dmenu-desktop which only displays applications
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that
+# installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# change focus
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+m focus right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# move focused window
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+m move right
+
+# alternatively, you can use the cursor keys:
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# split in horizontal orientation
+bindsym $mod+h split h
+
+# split in vertical orientation
+bindsym $mod+v split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s layout stacking
+bindsym $mod+z layout tabbed
+bindsym $mod+e layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+bindsym $mod+q focus parent
+
+# focus the child container
+#bindsym $mod+d focus child
+
+# Jump to urgent window
+bindsym $mod+x [urgent=latest] focus
+
+# switch to workspace
+bindsym $mod+ampersand workspace $wsp1
+bindsym $mod+eacute workspace $wsp2
+bindsym $mod+quotedbl workspace $wsp3
+bindsym $mod+apostrophe workspace $wsp4
+bindsym $mod+parenleft workspace $wsp5
+bindsym $mod+minus workspace $wsp6
+bindsym $mod+egrave workspace $wsp7
+bindsym $mod+underscore workspace $wsp8
+bindsym $mod+ccedilla workspace $wsp9
+bindsym $mod+agrave workspace $wsp10
+
+# move focused container to workspace
+bindsym $mod+Shift+ampersand move container to workspace $wsp1
+bindsym $mod+Shift+eacute move container to workspace $wsp2
+bindsym $mod+Shift+quotedbl move container to workspace $wsp3
+bindsym $mod+Shift+apostrophe move container to workspace $wsp4
+bindsym $mod+Shift+5 move container to workspace $wsp5
+bindsym $mod+Shift+minus move container to workspace $wsp6
+bindsym $mod+Shift+egrave move container to workspace $wsp7
+bindsym $mod+Shift+underscore move container to workspace $wsp8
+bindsym $mod+Shift+ccedilla move container to workspace $wsp9
+bindsym $mod+Shift+agrave move container to workspace $wsp10
+
+# reload the configuration file
+bindsym $mod+Shift+c reload
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# oldschool F4
+bindsym Mod1+F4 kill
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym k resize grow height 10 px or 10 ppt
+        bindsym l resize shrink height 10 px or 10 ppt
+        bindsym m resize grow width 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize shrink width 10 px or 10 ppt
+        bindsym Down resize grow height 10 px or 10 ppt
+        bindsym Up resize shrink height 10 px or 10 ppt
+        bindsym Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+        position bottom
+        tray_output primary
+        modifier $mod
+        mode dock
+        workspace_buttons yes
+        status_command i3status -c ~/.i3/i3status.conf
+        tray_output DP1
+
+        colors {
+                background          #101010
+                statusline         #b2b2b2
+                # class               border  backgr  text  indicator
+                focused_workspace  #1c1c1c #101010 #f7f7f7
+                active_workspace   #1c1c1c  #121212 #f7f7f7 #444444
+                inactive_workspace #080808 #101010 #262626 #222222
+                urgent_workspace   ##e4e4e4 #121212 #e4e4e4
+        }
+
+}
+
+# theming
+hide_edge_borders both
+new_window pixel 1
+
+# class                 border  backgr. text    indicator
+client.background       #060606
+
+#statusline
+client.focused          #303030 #060606 #949494 #eeeeee
+client.focused_inactive #121212 #060606 #262626 #121212
+client.unfocused        #1c1c1c #060606 #262626 #444444
+client.urgent           #5f0000 #060606 #5f0000 #870000
+
+workspace $wsp1 output DP1
+workspace $wsp2 output DP2
+workspace $wsp3 output VGA1
+workspace $wsp4 output DP1
+workspace $wsp5 output DP2
+workspace $wsp6 output VGA1
+workspace $wsp7 output DP1
+workspace $wsp8 output DP2
+workspace $wsp9 output VGA1
+workspace $wsp10 output DP1
+
+# primary Monitor
+assign [class="(?i)terminator"] $wsp1
+assign [class="(?i)xterm"] $wsp1
+assign [class="(?i)urxvt"] $wsp1
+assign [class="(?i)atom"] $wsp1
+assign [class="(?i)sublime-text"] $wsp1
+assign [class="(?i)bracket"] $wsp1
+
+# Right Monitor
+assign [class="(?i)firefox"] $wsp2
+assign [class="(?i)chromium"] $wsp2
+assign [class="(?i)libreoffice"] $wsp8
+assign [class="(?i)virtualbox"] $wsp7
+
+# Left Monitor
+assign [class="(?i)thunderbird"] $wsp3
+assign [class="(?i)pidgin"] $wsp3
+assign [class="(?i)MPlayer"] $wsp4
+assign [class="(?i)vlc"] $wsp4
+
+# floating
+for_window [class="(?i)vlc"] floating enable border none
+for_window [class="(?i)MPlayer"] floating enable border none
+for_window [class="(?i)MPlayer2"] floating enable border none
+for_window [title="MPlayer"] border none
+for_window [class="(?i)virtualbox"] floating enable
+for_window [class="Lxappearance"] floating enable
+for_window [class="plugin-container"] floating enable
+for_window [class="Xarchiver"] floating enable
+for_window [instance="Msgcompose"] floating enable
+for_window [title="Preferences$"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="task_dialog"] floating enable
+for_window [window_role="About"] floating enable
+for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
+for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
+for_window [window_role="conversation"] floating enable, border normal
+for_window [window_role="Msgcompose"] floating enable, border normal
+
+# Enable tabbed mode
+#for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
+
+# autostart
+exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id xscreensaver -nosplash
+exec --no-startup-id pulseaudio --start
+exec --no-startup-id /home/toma/Dev/bash/tmux-irssi/tmux_irssi_nicklist.sh
+
+# start items when login on specific workspaces
+exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
+exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
+exec --no-startup-id i3-msg 'workspace $wsp3; exec pidgin'
+exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
+exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t irc"'
+
+# xautolock (lock term)
+exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png"
+
+# volume control
+bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
+bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%
+
+# screencapture keys
+bindsym Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
+bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
+
+# lock | logout | suspend | reboot ...
+# set $Locker i3lock && sleep 1
+set $Locker i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png
+
+set $mode_system System (Shift+l) Screensaver, (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym Shift+l exec --no-startup-id xscreensaver-command -lock, mode "default"
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym $mod+Pause mode "$mode_system"
+
