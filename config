@@ -8,13 +8,13 @@ set $mod Mod1
 # workspace definition
 set $wsp1 "1: main"
 set $wsp2 "2: web"
-set $wsp3 "3: com"
+set $wsp3 "3: mail"
 set $wsp4 "4: media"
 set $wsp5 "5: virt"
 set $wsp6 "6: irc"
 set $wsp7 7
 set $wsp8 "8: office"
-set $wsp9 9
+set $wsp9 "9: com"
 set $wsp10 10
 
 # fonts
@@ -203,7 +203,7 @@ workspace $wsp9 output VGA1
 workspace $wsp10 output DP1
 
 # primary Monitor
-assign [class="(?i)terminator"] $wsp1
+#assign [class="(?i)terminator"] $wsp1
 assign [class="(?i)xterm"] $wsp1
 assign [class="(?i)urxvt"] $wsp1
 assign [class="(?i)atom"] $wsp1
@@ -249,12 +249,15 @@ exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id pulseaudio --start
 exec --no-startup-id /home/toma/Dev/bash/tmux-irssi/tmux_irssi_nicklist.sh
+#exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+# turn off screen after 60 min
+exec --no-startup-id xset dpms 600
 
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
-exec --no-startup-id i3-msg 'workspace $wsp3; exec pidgin'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
+exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
 exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t irc"'
 
 # xautolock (lock term)
@@ -262,7 +265,7 @@ exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home
 
 # volume control
 bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
-bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%
+bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%t
 
 # screencapture keys
 bindsym Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
