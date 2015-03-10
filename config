@@ -209,7 +209,6 @@ assign [class="(?i)urxvt"] $wsp1
 assign [class="(?i)atom"] $wsp1
 assign [class="(?i)sublime-text"] $wsp1
 assign [class="(?i)bracket"] $wsp1
-
 # Right Monitor
 assign [class="(?i)firefox"] $wsp2
 assign [class="(?i)chromium"] $wsp2
@@ -218,7 +217,7 @@ assign [class="(?i)virtualbox"] $wsp7
 
 # Left Monitor
 assign [class="(?i)thunderbird"] $wsp3
-assign [class="(?i)pidgin"] $wsp3
+assign [class="(?i)pidgin"] $wsp9
 assign [class="(?i)MPlayer"] $wsp4
 assign [class="(?i)vlc"] $wsp4
 
