@@ -239,20 +239,19 @@ for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; 
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
 for_window [window_role="conversation"] floating enable, border normal
 for_window [window_role="Msgcompose"] floating enable, border normal
+for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
 
 # Enable tabbed mode
 #for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
 
 # autostart
-exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id pulseaudio --start
 exec --no-startup-id /home/toma/Dev/bash/tmux-irssi/tmux_irssi_nicklist.sh
-#exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
-
-# start items when login on specific workspaces
+x# start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
