@@ -251,7 +251,7 @@ exec --no-startup-id pulseaudio --start
 exec --no-startup-id /home/toma/Dev/bash/tmux-irssi/tmux_irssi_nicklist.sh
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
-x# start items when login on specific workspaces
+# start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
