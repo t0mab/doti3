@@ -265,7 +265,7 @@ exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home
 
 # volume control
 bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
-bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%t
+bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%
 
 # screencapture keys
 bindsym Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
