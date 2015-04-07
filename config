@@ -221,6 +221,7 @@ assign [class="(?i)virtualbox"] $wsp7
 assign [class="(?i)thunderbird"] $wsp3
 assign [class="(?i)pidgin"] $wsp9
 assign [class="(?i)MPlayer"] $wsp4
+assign [class="(?i)qarte"] $wsp4
 assign [class="(?i)vlc"] $wsp4
 
 # floating
@@ -249,7 +250,6 @@ for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
 # autostart
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
-exec --no-startup-id pulseaudio --start
 
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
