@@ -165,17 +165,19 @@ bar {
         modifier $mod
         mode dock
         workspace_buttons yes
-        status_command i3status -c ~/.i3/i3status.conf
+        status_command $HOME/Scripts/conky-wrapper
+        font pango: Terminus Regular 12
+        #status_command i3status -c ~/.i3/i3status.conf
         tray_output DP1
 
         colors {
-                background          #101010
+                background         #101010
                 statusline         #b2b2b2
                 # class               border  backgr  text  indicator
                 focused_workspace  #1c1c1c #101010 #f7f7f7
                 active_workspace   #1c1c1c  #121212 #f7f7f7 #444444
                 inactive_workspace #080808 #101010 #262626 #222222
-                urgent_workspace   ##e4e4e4 #121212 #e4e4e4
+                urgent_workspace   #e4e4e4 #121212 #e4e4e4
         }
 
 }
