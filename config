@@ -43,10 +43,10 @@ bindsym $mod+p exec --no-startup-id "j4-dmenu-desktop --dmenu='dmenu -i -b -fn '
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+m focus right
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+m focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -167,6 +167,7 @@ bar {
         workspace_buttons yes
         status_command $HOME/Scripts/conky-wrapper
         font pango: Terminus Regular 12
+        #font -xos4-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
         #status_command i3status -c ~/.i3/i3status.conf
         tray_output DP1
 
@@ -249,18 +250,26 @@ for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
 # Enable tabbed mode
 #for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
 
+# scratchpad
+bindsym $mod+m move scratchpad
+bindsym $mod+o scratchpad show
+
 # autostart
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
-
+exec --no-startup-id unclutter
+exec --no-startup-id clipit
+exec --no-startup-id dunst
+#exec urxvt -name scratchpad -e bash
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
+
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
-exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t main"'
+exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t main"'k
 
 # xautolock (lock term)
 exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png"
