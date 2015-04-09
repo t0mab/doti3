@@ -259,8 +259,9 @@ exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id unclutter
 exec --no-startup-id clipit
-exec --no-startup-id dunst
-#exec urxvt -name scratchpad -e bash
+exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+#
+# exec urxvt -name scratchpad -e bash
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
 
@@ -269,7 +270,7 @@ exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
-exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t main"'k
+exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t irc"'
 
 # xautolock (lock term)
 exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png"
