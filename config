@@ -18,7 +18,7 @@ set $wsp9 "9: com"
 set $wsp10 10
 
 # fonts
-font xft:Terminus, FontAwesome 8
+font xft:Terminus, FontAwesome 12 
 # default:
 # font pango:DejaVu Sans Mono 8
 
@@ -35,8 +35,9 @@ bindsym $mod+Shift+a kill
 # bindsym $mod+p exec dmenu_run
 
 #bindsym $mod+p exec --no-startup-id j4-dmenu-desktop
-bindsym $mod+p exec --no-startup-id "j4-dmenu-desktop --dmenu='dmenu -i -b -fn '-*-terminus-*-*-*-*-12-*-*-*-*-*-*-*''"
-
+#
+bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#800' -fn '-*-terminus-*-*-*-*-14-*-*-*-*-*-*-*'"
+bindsym Mod4+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#800' -fn 'DejaVu Sans-14' -l 20"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -255,6 +256,7 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # autostart
+#exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config /dev/null
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id unclutter
