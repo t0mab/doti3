@@ -134,6 +134,13 @@ bindsym $mod+w exec "chromium"
 
 # launch terminator
 bindsym $mod+t exec "terminator"
+
+# launch caja
+bindsym $mod+c exec "caja"
+
+#launch sublime text
+bindsym $mod+b exec "subl"
+
 # oldschool F4
 bindsym Mod1+F4 kill
 

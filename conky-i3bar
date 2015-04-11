@@ -78,6 +78,9 @@ max_text_width 0
 TEXT
 
 [ \
+  ${if_running pacman}
+  { "full_text" : "PACMAN RUNNING", "color" : "\#F7B44F", "short_text" : "Pacman" }, \ 
+  ${endif}  
   { "full_text" : " [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${loadavg }", "color" : ${if_match ${loadavg 1}>5}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
 \
