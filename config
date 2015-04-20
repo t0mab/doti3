@@ -18,7 +18,7 @@ set $wsp9 "9: com"
 set $wsp10 10
 
 # fonts
-font xft:Terminus, FontAwesome 12 
+font xft:Terminus, FontAwesome 12
 # default:
 # font pango:DejaVu Sans Mono 8
 
@@ -139,10 +139,13 @@ bindsym $mod+t exec "terminator"
 bindsym $mod+c exec "caja"
 
 #launch sublime text
-bindsym $mod+b exec "subl"
+bindsym $mod+b exec "subl3"
 
 # oldschool F4
 bindsym Mod1+F4 kill
+
+# start ranger
+bindsym Mod4+e exec "urxvt -e ranger"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -312,4 +315,3 @@ mode "$mode_system" {
 }
 
 bindsym $mod+Pause mode "$mode_system"
-
