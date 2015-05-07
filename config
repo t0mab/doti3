@@ -1,6 +1,8 @@
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
+#
+# Maintainer: T0mab
 
 # alt key is the key !
 set $mod Mod1
@@ -149,22 +151,41 @@ bindsym Mod4+e exec "urxvt -e ranger"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym m resize grow width 10 px or 10 ppt
+    # These bindings trigger as soon as you enter the resize mode
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym m resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym p mode "resize_precise"
+
 }
+
+# precise resize window
+mode "resize_precise" {
+    bindsym h resize shrink left 1 px or 1 ppt
+    bindsym j resize shrink down 1 px or 1 ppt
+    bindsym k resize shrink up 1 px or 1 ppt
+    bindsym l resize shrink right 1 px or 1 ppt
+    bindsym Shift+H resize grow left 1 px or 1 ppt
+    bindsym Shift+J resize grow down 1 px or 1 ppt
+    bindsym Shift+K resize grow up 1 px or 1 ppt
+    bindsym Shift+L resize grow right 1 px or 1 ppt
+
+    bindsym p mode "resize"
+    bindsym Escape mode "default"
+    bindsym Return mode "default"
+}
+
 
 bindsym $mod+r mode "resize"
 
@@ -196,7 +217,9 @@ bar {
 
 # theming
 hide_edge_borders both
-new_window pixel 1
+new_window pixel 3
+new_float normal 2
+
 
 # class                 border  backgr. text    indicator
 client.background       #060606
@@ -225,6 +248,7 @@ assign [class="(?i)urxvt"] $wsp1
 assign [class="(?i)atom"] $wsp1
 assign [class="(?i)sublime-text"] $wsp1
 assign [class="(?i)bracket"] $wsp1
+
 # Right Monitor
 assign [class="(?i)firefox"] $wsp2
 assign [class="(?i)chromium"] $wsp2
@@ -257,6 +281,19 @@ for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 p
 for_window [window_role="conversation"] floating enable, border normal
 for_window [window_role="Msgcompose"] floating enable, border normal
 for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
+for_window [title="Firefox Preferences"] floating enable
+for_window [title="Wine configuration"] floating enable
+for_window [title="qtcreator"] floating enable
+for_window [title="SDL application"] floating enable
+for_window [title="MainWindow"] floating enable
+for_window [title="Wine desktop"] floating enable
+for_window [title="MonoDevelop External Console"] floating enable
+for_window [title="i3float"] floating enable
+for_window [title="KDbg: Program output"] floating enable
+for_window [title="Form1"] floating enable
+for_window [title="recordMyDesktop"] floating enable
+for_window [title="Keyboard Status Monitor"] floating enable
+for_window [title="Current Media Information"] floating enable
 
 # Enable tabbed mode
 #for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
@@ -271,21 +308,21 @@ exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id unclutter
 exec --no-startup-id clipit
+exec --no-startup-id pasystray
+exec --no-startup-id nm-applet
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
-#
 # exec urxvt -name scratchpad -e bash
+
 # turn off screen after 60 min
 exec --no-startup-id xset dpms 600
 
 # start items when login on specific workspaces
-exec --no-startup-id i3-msg 'workspace $wsp1; exec terminator'
+exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
 exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t irc"'
 
-# xautolock (lock term)
-exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png"
 
 # volume control
 bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
@@ -296,8 +333,13 @@ bindsym Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screen
 bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
 
 # lock | logout | suspend | reboot ...
+
 # set $Locker i3lock && sleep 1
-set $Locker i3lock -c 000000 -d -n -i /home/toma/Pictures/backgrounds/8-bit-skull.png
+
+# xautolock (lock term)
+exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png"
+
+set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 set $mode_system System (Shift+l) Screensaver, (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -315,3 +357,22 @@ mode "$mode_system" {
 }
 
 bindsym $mod+Pause mode "$mode_system"
+
+# Fix graphics glitch
+for_window [class="^.*"] border pixel 1
+for_window [class="(?i)urxvt"] border pixel 1
+
+# Compton
+bindsym $alt2+m exec --no-startup-id urxvt -e bash -c 'recomposite'
+bindsym $alt2+n exec --no-startup-id urxvt -e bash -c 'killall compton'
+
+
+# saved layouts
+set $layoutmenu "layouts: [ p ]ython p[ h ]p [ r ]eveal.js"
+bindsym $mod+l  mode $layoutmenu
+mode $layoutmenu {
+    bindsym p exec --no-startup-id "~/.i3/saved-layouts/python/layout_restore.sh", mode "default"
+    #bindsym h
+    #bindsym r
+    bindsym Escape mode "default"
+}
