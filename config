@@ -20,10 +20,10 @@ set $wsp9 "9: com"
 set $wsp10 10
 
 # fonts
-font xft:Terminus, FontAwesome 12
+# font xft:Terminus, FontAwesome 12
 # default:
 # font pango:DejaVu Sans Mono 8
-
+font pango:Inconsolata, Icons ,WeatherIcons, FontAwesome 12
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -32,6 +32,10 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+a kill
+
+# manage popup when fs
+popup_during_fullscreen smart
+
 
 # start dmenu (a program launcher)
 # bindsym $mod+p exec dmenu_run
@@ -77,6 +81,8 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
+
+bindsym Mod4+f fullscreen global
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -144,10 +150,18 @@ bindsym $mod+c exec "caja"
 bindsym $mod+b exec "subl3"
 
 # oldschool F4
-bindsym Mod1+F4 kill
+bindsym $mod+F4 kill
 
 # start ranger
 bindsym Mod4+e exec "urxvt -e ranger"
+
+# Press $mod+2 to go to second workspace, press again to return to where you
+# were
+workspace_auto_back_and_forth yes
+
+# Move to next workspace on output
+bindsym $mod+Tab workspace next_on_output
+
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -206,9 +220,9 @@ bar {
         colors {
                 background         #101010
                 statusline         #b2b2b2
-                # class               border  backgr  text  indicator
-                focused_workspace  #1c1c1c #101010 #f7f7f7
-                active_workspace   #1c1c1c  #121212 #f7f7f7 #444444
+                # class              border  backgr  text  indicator
+                focused_workspace  #FFFFFF #101010 #f7f7f7
+                active_workspace   #1c1c1c #121212 #f7f7f7 #444444
                 inactive_workspace #080808 #101010 #262626 #222222
                 urgent_workspace   #e4e4e4 #121212 #e4e4e4
         }
@@ -224,11 +238,17 @@ new_float normal 2
 # class                 border  backgr. text    indicator
 client.background       #060606
 
-#statusline
+# statusline
 client.focused          #303030 #060606 #949494 #eeeeee
 client.focused_inactive #121212 #060606 #262626 #121212
 client.unfocused        #1c1c1c #060606 #262626 #444444
 client.urgent           #5f0000 #060606 #5f0000 #870000
+client.placeholder      #323537 #323537 #ffffff #323537
+#client.focused          #FFFFFF #FFFFFF #000000 #FFFFFF
+#client.focused_inactive #FFFFFF #FFFFFF #888888 #FFFFFF
+#client.unfocused        #FFFFFF #FFFFFF #888888 #FFFFFF
+#client.urgent           #323537 #323537 #ffffff #323537
+
 
 workspace $wsp1 output DP1
 workspace $wsp2 output DP2
@@ -278,9 +298,9 @@ for_window [window_role="task_dialog"] floating enable
 for_window [window_role="About"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
-for_window [window_role="conversation"] floating enable, border normal
-for_window [window_role="Msgcompose"] floating enable, border normal
-for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
+#for_window [window_role="conversation"] floating enable, border normal
+#for_window [window_role="Msgcompose"] floating enable, border normal
+#for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
 for_window [title="Firefox Preferences"] floating enable
 for_window [title="Wine configuration"] floating enable
 for_window [title="qtcreator"] floating enable
@@ -294,6 +314,7 @@ for_window [title="Form1"] floating enable
 for_window [title="recordMyDesktop"] floating enable
 for_window [title="Keyboard Status Monitor"] floating enable
 for_window [title="Current Media Information"] floating enable
+for_window [title="Select Folder"] Floating enable
 
 # Enable tabbed mode
 #for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
@@ -306,11 +327,12 @@ bindsym $mod+o scratchpad show
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config /dev/null
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
-exec --no-startup-id unclutter
+exec --no-startup-id unclutter -idle 2 -grab
 exec --no-startup-id clipit
 exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec --no-startup-id dropbox
 # exec urxvt -name scratchpad -e bash
 
 # turn off screen after 60 min
@@ -319,17 +341,16 @@ exec --no-startup-id xset dpms 600
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
-exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird'
+exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
-exec --no-startup-id i3-msg 'workspace $wsp6; exec terminator --command="tmux attach -t irc"'
-
+exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e "tmux attach -t irc"'
 
 # volume control
 bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
 bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%
 
 # screencapture keys
-bindsym Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
+bindsym --release Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
 bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
 
 # lock | logout | suspend | reboot ...
@@ -337,9 +358,11 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # set $Locker i3lock && sleep 1
 
 # xautolock (lock term)
-exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png"
+# exec --no-startup-qid xautolock -time 3 -locker "i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png"
 
 set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
+
+bindsym $mod+Shift+x exec $locker 
 
 set $mode_system System (Shift+l) Screensaver, (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
@@ -358,14 +381,25 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
 
+# mirror screen with an other output
+set $mode_screen Mirror VGA (m), Extend VGA (e), Reset (r)
+mode "$mode_screen" {
+        bindsym m exec "xrandr --output VGA1 --auto --output LVDS1 --auto", mode "default"
+        bindsym e exec "xrandr --output VGA1 --auto ---output VGA --right-of LVDS -output LVDS1 --auto", mode "default"
+        bindsym r exec "xrandr --output VGA1 --off --output LVDS1 --auto", mode "default"
+        
+        #back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+Bindsym $mod+F7 mode "$mode_screen"
+
 # Fix graphics glitch
 for_window [class="^.*"] border pixel 1
 for_window [class="(?i)urxvt"] border pixel 1
 
 # Compton
-bindsym $alt2+m exec --no-startup-id urxvt -e bash -c 'recomposite'
-bindsym $alt2+n exec --no-startup-id urxvt -e bash -c 'killall compton'
-
+bindsym Mod4+r exec --no-startup-id urxvt -e bash -c 'recomposite'
 
 # saved layouts
 set $layoutmenu "layouts: [ p ]ython p[ h ]p [ r ]eveal.js"
@@ -376,3 +410,26 @@ mode $layoutmenu {
     #bindsym r
     bindsym Escape mode "default"
 }
+
+# Dropdown terminal
+#bindsym $mod+z exec tdrop -a -w 1362 -y 14 -s dropdown urxvt
+#
+
+set $mode_extmonitor External Monitor: Left (J), Right (L), (O) Off
+mode "$mode_extmonitor"
+{
+    bindsym j exec --no-startup-id ~/Scripts/extmonitor.sh e
+    bindsym l exec --no-startup-id ~/Scripts/extmonitor.sh d
+    bindsym o exec --no-startup-id ~/Scripts/extmonitor.sh o
+    bindsym r exec --no-startup-id ~/Scripts/extmonitor.sh r
+    # back to normal: Escape
+    bindsym Escape mode "default"
+}
+bindsym $mod+p mode "$mode_extmonitor"
+
+#Passthrough mode - disables all i3 keybindings
+set $passthrough_keys Passtrough Mode (Disable: Mod+Shift+Backspace)
+mode "$passthrough_keys" {
+                bindcode $mod+Shift+22 mode "default"
+}
+bindcode $mod+Shift+22 mode "$passthrough_keys"
