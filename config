@@ -425,7 +425,7 @@ mode "$mode_extmonitor"
     # back to normal: Escape
     bindsym Escape mode "default"
 }
-bindsym $mod+p mode "$mode_extmonitor"
+bindsym Mod4+p mode "$mode_extmonitor"
 
 #Passthrough mode - disables all i3 keybindings
 set $passthrough_keys Passtrough Mode (Disable: Mod+Shift+Backspace)
