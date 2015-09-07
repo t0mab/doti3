@@ -433,3 +433,5 @@ mode "$passthrough_keys" {
                 bindcode $mod+Shift+22 mode "default"
 }
 bindcode $mod+Shift+22 mode "$passthrough_keys"
+
+# vim:filetype=i3
