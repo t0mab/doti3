@@ -36,6 +36,8 @@ bindsym $mod+Shift+a kill
 # manage popup when fs
 popup_during_fullscreen smart
 
+# sticky windows toggle
+# bindsym $mod+Shift+s sticky toggle
 
 # start dmenu (a program launcher)
 # bindsym $mod+p exec dmenu_run
@@ -140,12 +142,9 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # launch chromium
 bindsym $mod+w exec "chromium"
 
-# launch terminator
-bindsym $mod+t exec "terminator"
-
 # launch caja
-bindsym $mod+c exec "caja"
-
+#bindsym $mod+c exec "caja"
+bindsym $mod+c  exec --no-startup-id scratchpad caja 1100 700 caja
 #launch sublime text
 bindsym $mod+b exec "subl3"
 
@@ -154,6 +153,9 @@ bindsym $mod+F4 kill
 
 # start ranger
 bindsym Mod4+e exec "urxvt -e ranger"
+
+# osd 
+bindsym $mod+t exec ~/Scripts/windowtitleosd
 
 # Press $mod+2 to go to second workspace, press again to return to where you
 # were
@@ -327,7 +329,8 @@ bindsym $mod+o scratchpad show
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config /dev/null
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
-exec --no-startup-id unclutter -idle 2 -grab
+exec --no-startup-id unclutter 
+#exec --no-startup-id unclutter  -idle 2 -grab
 exec --no-startup-id clipit
 exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
