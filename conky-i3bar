@@ -84,7 +84,7 @@ conky.text = [[
   {"full_text": " [ ${exec sh ~/Scripts/cmusconky.sh} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : "${loadavg }", "color" : ${if_match ${loadavg 1}>5}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "${loadavg }", "color" : ${if_match "${loadavg 1}">="5"}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [ cpu ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${cpu cpu0}%", "color" : ${if_match ${cpu cpu0}>50}"\#DC322F"${else}"\#40FF00"${endif}, "min_width" : 25, "separator" : false, "separator_block_width" : 3 }, \

@@ -3,8 +3,8 @@
 # stolen from :
 # https://www.reddit.com/r/i3wm/comments/3knyth/i_made_this_bash_script_for_scratchpadding_any_app/
 
-SCREENWIDTH=1920
-SCREENHEIGHT=1080
+SCREENWIDTH=1680
+SCREENHEIGHT=1050
 
 # check for number of arguments and print help
 if [ $# -lt 4 ]
