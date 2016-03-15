@@ -1,0 +1,12 @@
+#!/bin/bash
+
+bgtrans='argb:BB5B3A41'
+bgdark='#5B3A41'
+white='#FFFFFF'
+
+URL='https://www.duckduckgo.com/?q='
+QUERY=$(echo '' | rofi -dmenu -p "[web search]:" -lines 2 -eh 2  -bw 0 -bc "$bgtrans" -bg "$bgtrans" -fg "$white" -hlbg "$bgtrans" -hlfg "$bgdark" -separator-style none -location 0 -width 550 -hide-scrollbar -padding 30)
+if [ -n "$QUERY" ]; then
+  xdg-open "${URL}${QUERY}" 2> /dev/null
+  exec i3-msg [class="^Chromium$"] focus
+fi
