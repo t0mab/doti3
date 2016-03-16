@@ -2,11 +2,11 @@
 
 # needs xscreensaver lockscript rofi
 
-res=$(echo "lock;screensaver;reload;restart;logout;suspend;shutdown" | rofi -sep ";" -dmenu -p "[power]:" -bw 0 -bc "#f3f4f5" -bg "#f3f4f5" -fg "#2f343f" -hlbg "#2f343f" -hlfg "#f3f4f5" -separator-style none -location 0 -width 250 -hide-scrollbar -padding 30)
+res=$(echo "lock;screensaver;reload;restart;logout;suspend;shutdown" | rofi -sep ";" -dmenu -p "power :" -bw 0 -bc "#f3f4f5" -bg "#f3f4f5" -fg "#2f343f" -hlbg "#2f343f" -hlfg "#f3f4f5" -separator-style none -location 0 -width 250 -hide-scrollbar -padding 30)
 
 
 if [ $res = "lock" ]; then
-    /home/toma/Scripts/lock
+    $HOME/Scripts/lock
 fi
 if [ $res = "logout" ]; then
     i3-msg exit

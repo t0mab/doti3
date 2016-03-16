@@ -7,6 +7,8 @@
 # Set mod key (Mod1=<Alt>, Mod4=<Super>)
 # alt key is the key !
 set $mod Mod1
+set $mod2 Mod4
+set $tray_output_destination DP1
 
 # workspace definition
 set $wsp1 "1: term"
@@ -20,11 +22,8 @@ set $wsp8 "8: office"
 set $wsp9 "9: chat"
 set $wsp10 "10: code"
 
-# fonts
-# font xft:Terminus, FontAwesome 12
-# default:
-# font pango:DejaVu Sans Mono 8
 font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 12
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -33,6 +32,9 @@ bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
+
+# oldschool F4
+bindsym $mod+F4 kill
 
 # manage popup when fs
 popup_during_fullscreen smart
@@ -48,11 +50,13 @@ force_display_urgency_hint 500 ms
 
 # start dmenu (a program launcher)
 # bindsym $mod+p exec dmenu_run
-
 #bindsym $mod+p exec --no-startup-id j4-dmenu-desktop
-#
+
 bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
-bindsym Mod4+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
+bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="rofi -i -dmenu -p 'run:'"
+#bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
+#bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -90,7 +94,7 @@ bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
-bindsym Mod4+f fullscreen global
+bindsym $mod2+f fullscreen global
 bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 933 518
 bindsym $mod+Shift+f fullscreen toggle fake
 bindsym $mod+g fullscreen disable fake; floating toggle; sticky toggle; move position 1200 21; resize set 400 300
@@ -110,7 +114,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+q focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+d focus child
 
 # Jump to urgent window
 bindsym $mod+x [urgent=latest] focus
@@ -151,20 +155,7 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# launch chromium
-bindsym $mod+w exec "chromium"
 
-# launch caja
-#bindsym $mod+c exec "caja"
-bindsym $mod+c  exec --no-startup-id scratchpad caja 1100 700 caja
-#launch sublime text
-bindsym $mod+b exec "subl3"
-
-# oldschool F4
-bindsym $mod+F4 kill
-
-# start ranger
-bindsym Mod4+e exec "urxvt -e ranger"
 
 # osd
 bindsym $mod+t exec $HOME/Scripts/windowtitleosd
@@ -195,7 +186,6 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
     bindsym p mode "resize_precise"
-
 }
 
 # precise resize window
@@ -229,7 +219,7 @@ bar {
         font pango: Terminus Regular 12
         #font -xos4-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
         #status_command i3status -c ~/.i3/i3status.conf
-        tray_output DP1
+        tray_output $tray_output_destination
 
         colors {
                 background         #101010
@@ -248,7 +238,6 @@ hide_edge_borders both
 new_window pixel 3
 new_float normal 2
 
-
 # class                 border  backgr. text    indicator
 client.background       #060606
 
@@ -262,7 +251,6 @@ client.placeholder      #323537 #323537 #ffffff #323537
 #client.focused_inactive #FFFFFF #FFFFFF #888888 #FFFFFF
 #client.unfocused        #FFFFFF #FFFFFF #888888 #FFFFFF
 #client.urgent           #323537 #323537 #ffffff #323537
-
 
 workspace $wsp1 output DP1
 workspace $wsp2 output DP2
@@ -367,9 +355,6 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 
-# turn off screen after 60 min
-exec --no-startup-id xset dpms 600
-
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
@@ -414,10 +399,20 @@ mode "$mode_system" {
 
 bindsym $mod+Pause mode "$mode_system"
 
-# Mod4 keybindings
-bindsym Mod4+p exec $HOME/Scripts/rofipowermenu
-bindsym Mod4+s exec $HOME/Scripts/rofisearch
-bindsym Mod4+r exec --no-startup-id urxvt -e bash -c 'recomposite'
+# $mod2 keybindings
+bindsym $mod2+p exec $HOME/Scripts/rofipowermenu
+bindsym $mod2+s exec $HOME/Scripts/rofisearch
+bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
+# launch chromium
+bindsym $mod2+w exec "chromium"
+# launch caja
+bindsym $mod2+c  exec --no-startup-id scratchpad caja 1100 700 caja
+#launch sublime text
+bindsym $mod2+b exec "subl3"
+# start ranger
+bindsym $mod2+e exec "urxvt -e ranger"
+# Mount usb
+#bindsym $mod2+m exec sudo mount -o rw,noauto,async,user,umask=1000 /dev/sdb1 /media/usb
 
 # mirror screen with an other output
 set $mode_screen Mirror VGA (m), Extend VGA (e), Reset (r)
@@ -447,7 +442,7 @@ mode $layoutmenu {
 }
 
 # Dropdown terminal
-#bindsym $mod+z exec tdrop -a -w 1362 -y 14 -s dropdown urxvt
+# bindsym $mod2+z exec tdrop -a -w 1362 -y 14 -s dropdown urxvt
 #
 
 set $mode_extmonitor External Monitor: Left (J), Right (L), (O) Off
@@ -460,7 +455,7 @@ mode "$mode_extmonitor"
     # back to normal: Escape
     bindsym Escape mode "default"
 }
-bindsym Mod4+m mode "$mode_extmonitor"
+bindsym $mod2+m mode "$mode_extmonitor"
 
 #Passthrough mode - disables all i3 keybindings
 set $passthrough_keys Passtrough Mode (Disable: Mod+Shift+Backspace)
