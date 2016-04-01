@@ -238,15 +238,15 @@ hide_edge_borders both
 new_window pixel 3
 new_float normal 2
 
-# class                 border  backgr. text    indicator
-client.background       #060606
+# class                  border  backgr. text    indicator
+client.background        #060606
 
 # statusline
-client.focused          #303030 #060606 #949494 #eeeeee
-client.focused_inactive #121212 #060606 #262626 #121212
-client.unfocused        #1c1c1c #060606 #262626 #444444
-client.urgent           #5f0000 #060606 #5f0000 #870000
-client.placeholder      #323537 #323537 #ffffff #323537
+client.focused           #303030 #060606 #949494 #eeeeee
+client.focused_inactive  #121212 #060606 #262626 #121212
+client.unfocused         #1c1c1c #060606 #262626 #444444
+client.urgent            #5f0000 #060606 #5f0000 #870000
+client.placeholder       #323537 #323537 #ffffff #323537
 #client.focused          #FFFFFF #FFFFFF #000000 #FFFFFF
 #client.focused_inactive #FFFFFF #FFFFFF #888888 #FFFFFF
 #client.unfocused        #FFFFFF #FFFFFF #888888 #FFFFFF
@@ -411,6 +411,8 @@ bindsym $mod2+c  exec --no-startup-id scratchpad caja 1100 700 caja
 bindsym $mod2+b exec "subl3"
 # start ranger
 bindsym $mod2+e exec "urxvt -e ranger"
+# start dofi (todo.txt using rofi)
+bindsym $mod2+t exec "dofi"
 # Mount usb
 #bindsym $mod2+m exec sudo mount -o rw,noauto,async,user,umask=1000 /dev/sdb1 /media/usb
 
