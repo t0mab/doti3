@@ -14,9 +14,9 @@ gradientColor='#E84C3D'
 font="$HOME/.local/share/fonts/times.ttf"
 scrot "$scr"
 convert "$scr" -scale 10% -scale 1000%\
-	-gravity south-west \
-	gradient:none-"$gradientColor" -composite -matte \
-	"$icon" -gravity center -composite -matte \
-	-gravity center -pointsize 20 -font $font \
-	-fill "#EAE4D1" -annotate +0+200 "$fortune" "$scr"
+    -gravity south-west \
+    gradient:none-"$gradientColor" -composite -matte \
+    "$icon" -gravity center -composite -matte \
+    -gravity center -pointsize 20 -font $font \
+    -fill "#EAE4D1" -annotate +0+200 "$fortune" "$scr"
 i3lock -ui "$scr"

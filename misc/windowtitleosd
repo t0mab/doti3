@@ -25,6 +25,3 @@ pidof osd_cat && pkill -x osd_cat && sleep 0.2
 
 # display osd_cat
 echo -e "[$class]\n[$title]" | osd_cat -A center -f "$osd_font" -O 2 -u "#000" - -T "Window Title:" -c "#8f8" -o 20
-
-
-

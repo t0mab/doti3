@@ -155,8 +155,6 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
-
-
 # osd
 bindsym $mod+t exec $HOME/Scripts/windowtitleosd
 
@@ -166,7 +164,6 @@ workspace_auto_back_and_forth yes
 
 # Move to next workspace on output
 bindsym $mod+Tab workspace next_on_output
-
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -346,10 +343,11 @@ bindsym $mod+o scratchpad show
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf /dev/null
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
-exec --no-startup-id unclutter
+exec --no-startup-id volnoti -t 1 &
+exec --no-startup-id unclutter -jitter 5 -idle 2 &
 #exec --no-startup-id unclutter  -idle 2 -grab
 exec --no-startup-id clipit
-exec --no-startup-id pasystray
+#exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
@@ -363,8 +361,14 @@ exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
 exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
 # volume control
-bindsym $mod+KP_Add exec pactl set-sink-volume 1 +10%
-bindsym $mod+KP_Subtract exec pactl set-sink-volume 1 -10%
+bindsym $mod+KP_Add exec --no-startup-id "~/Scripts/vol.sh i"
+bindsym $mod+KP_Subtract exec --no-startup-id "~/Scripts/vol.sh d"
+bindsym XF86AudioRaiseVolume exec --no-startup-id "~/Scripts/vol.sh i"
+bindsym XF86AudioLowerVolume exec --no-startup-id "~/Scripts/vol.sh d"
+bindsym XF86AudioMute exec --no-startup-id "~/Scripts/vol.sh m"
+
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 
 # screencapture keys
 bindsym --release Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
@@ -478,6 +482,5 @@ bindcode $mod+Shift+22 mode "$passthrough_keys"
 
 # create a initial project on startup with project name 'default'
 #exec --no-startup-id coffee ~/.i3/i3-project-focus-workflow/newProjectWorkspaces.coffee default
-
 
 # vim:filetype=i3

@@ -1,0 +1,27 @@
+{
+  "name": "Doti3",
+  "version": "1.0.0",
+  "description": "t0mab's custom flavored i3 dotfiles",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/t0mab/doti3.git"
+  },
+  "keywords": [
+    "t0mab",
+    "zsh"
+  ],
+  "author": "t0mab",
+  "license": "Beerware",
+  "bugs": {
+    "url": "https://github.com/t0mab/doti3/issues"
+  },
+  "homepage": "https://github.com/t0mab/doti3#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-lintspaces": "^0.4.1"
+  }
+}

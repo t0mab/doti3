@@ -29,7 +29,6 @@ function gen_xrandr_only()
 }
 
 
-
 declare -i index=0
 TILES[$index]="Cancel"
 COMMANDS[$index]="true"
