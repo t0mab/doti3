@@ -363,6 +363,7 @@ exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -e $SHELL "/usr/bin/tmu
 # volume control
 bindsym $mod+KP_Add exec --no-startup-id "~/Scripts/vol.sh i"
 bindsym $mod+KP_Subtract exec --no-startup-id "~/Scripts/vol.sh d"
+bindsym $mod+KP_Enter exec --no-startup-id "~/Scripts/vol.sh m"
 bindsym XF86AudioRaiseVolume exec --no-startup-id "~/Scripts/vol.sh i"
 bindsym XF86AudioLowerVolume exec --no-startup-id "~/Scripts/vol.sh d"
 bindsym XF86AudioMute exec --no-startup-id "~/Scripts/vol.sh m"
