@@ -5,8 +5,8 @@ My i3 config files  [![Build Status](https://travis-ci.org/t0mab/doti3.svg?branc
 # Dependencies:
 
 * rofi (https://github.com/DaveDavenport/rofi)
-* dunst
-* compton
+* dunst (https://github.com/knopwob/dunst)
+* compton (https://github.com/chjj/compton)
 * volnoti
 * volnoti-brightness patch
 * pamixer
