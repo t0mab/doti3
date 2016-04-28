@@ -11,6 +11,7 @@ rc:
 	@mkdir -p "$$HOME/"{.i3,Scripts,.conky}
 	@ln -sf "$$PWD/config" "$(HOME)/.i3/config"
 	@ln -sf "$$PWD/layouts" "$(HOME)/.i3/layouts"
+	@ln -sf "$$PWD/misc/caja_nodesktop" "$(HOME)/Scripts/caja_nodesktop"
 	@ln -sf "$$PWD/misc/conky-i3bar" "$(HOME)/.conky/conky-i3bar"
 	@ln -sf "$$PWD/misc/conky-wrapper" "$(HOME)/Scripts/conky-wrapper"
 	@ln -sf "$$PWD/misc/extmonitor.sh" "$(HOME)/Scripts/extmonitor.sh"
@@ -25,6 +26,7 @@ rc:
 clean:
 	-@rm -rfi "$(HOME)/.i3" || true
 	-@rm -rfi "$(HOME)/.conky/conky-i3bar"|| true
+	-@rm -rfi "$(HOME)/Scripts/caja_nodesktop"|| true
 	-@rm -rfi "$(HOME)/Scripts/conky-wrapper"|| true
 	-@rm -rfi "$(HOME)/Scripts/extmonitor.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/lock"|| true

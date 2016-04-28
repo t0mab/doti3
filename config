@@ -340,19 +340,18 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # autostart
-#exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf /dev/null
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id volnoti -t 1 &
 exec --no-startup-id unclutter -jitter 5 -idle 2 &
-#exec --no-startup-id unclutter  -idle 2 -grab
 exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
+# use compton as composite manager
+exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf /dev/null
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
-
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
@@ -409,11 +408,11 @@ bindsym $mod2+p exec $HOME/Scripts/rofipowermenu
 bindsym $mod2+Shift+s exec $HOME/Scripts/rofisearch
 bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
 bindsym $mod2+s exec --no-startup-id rofi -show ssh
-
+bindsym $mod+w exec --no-startup-id rofi -show window
 # launch chromium
 bindsym $mod2+w exec "chromium"
 # launch caja
-bindsym $mod2+c  exec --no-startup-id scratchpad caja 1100 700 caja
+bindsym $mod2+c  exec --no-startup-id scratchpad caja_nodesktop 1100 700 caja
 #launch sublime text
 bindsym $mod2+b exec "subl3"
 # start ranger
