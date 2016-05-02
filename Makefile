@@ -17,6 +17,7 @@ rc:
 	@ln -sf "$$PWD/misc/extmonitor.sh" "$(HOME)/Scripts/extmonitor.sh"
 	@ln -sf "$$PWD/misc/lock.sh" "$(HOME)/Scripts/lock"
 	@ln -sf "$$PWD/misc/rofipowermenu" "$(HOME)/Scripts/rofipowermenu"
+	@ln -sf "$$PWD/misc/rofimonitorlayout" "$(HOME)/Scripts/rofimonitorlayout"
 	@ln -sf "$$PWD/misc/rofisearch" "$(HOME)/Scripts/rofisearch"
 	@ln -sf "$$PWD/misc/scratchpad" "$(HOME)/Scripts/scratchpad"
 	@ln -sf "$$PWD/misc/vol.sh" "$(HOME)/Scripts/vol.sh"
@@ -30,6 +31,7 @@ clean:
 	-@rm -rfi "$(HOME)/Scripts/conky-wrapper"|| true
 	-@rm -rfi "$(HOME)/Scripts/extmonitor.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/lock"|| true
+	-@rm -rfi "$(HOME)/Scripts/rofimonitorlayout"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofipowermenu"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofisearch"|| true
 	-@rm -rfi "$(HOME)/Scripts/scratchpad"|| true
