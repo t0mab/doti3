@@ -12,11 +12,13 @@ rc:
 	@ln -sf "$$PWD/config" "$(HOME)/.i3/config"
 	@ln -sf "$$PWD/layouts" "$(HOME)/.i3/layouts"
 	@ln -sf "$$PWD/misc/battery_check.sh" "$(HOME)/Scripts/battery_check.sh"
+	@ln -sf "$$PWD/misc/caja_nodesktop" "$(HOME)/Scripts/caja_nodesktop"
 	@ln -sf "$$PWD/misc/conky-i3bar" "$(HOME)/.conky/conky-i3bar"
 	@ln -sf "$$PWD/misc/conky-wrapper" "$(HOME)/Scripts/conky-wrapper"
 	@ln -sf "$$PWD/misc/extmonitor.sh" "$(HOME)/Scripts/extmonitor.sh"
 	@ln -sf "$$PWD/misc/lock.sh" "$(HOME)/Scripts/lock"
 	@ln -sf "$$PWD/misc/rofipowermenu" "$(HOME)/Scripts/rofipowermenu"
+	@ln -sf "$$PWD/misc/rofimonitorlayout" "$(HOME)/Scripts/rofimonitorlayout"
 	@ln -sf "$$PWD/misc/rofisearch" "$(HOME)/Scripts/rofisearch"
 	@ln -sf "$$PWD/misc/scratchpad" "$(HOME)/Scripts/scratchpad"
 	@ln -sf "$$PWD/misc/vol.sh" "$(HOME)/Scripts/vol.sh"
@@ -27,9 +29,11 @@ clean:
 	-@rm -rfi "$(HOME)/.i3" || true
 	-@rm -rfi "$(HOME)/.conky/conky-i3bar"|| true
 	-@rm -rfi "$(HOME)/Scripts/battery_check.sh"|| true
+	-@rm -rfi "$(HOME)/Scripts/caja_nodesktop"|| true
 	-@rm -rfi "$(HOME)/Scripts/conky-wrapper"|| true
 	-@rm -rfi "$(HOME)/Scripts/extmonitor.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/lock"|| true
+	-@rm -rfi "$(HOME)/Scripts/rofimonitorlayout"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofipowermenu"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofisearch"|| true
 	-@rm -rfi "$(HOME)/Scripts/scratchpad"|| true
