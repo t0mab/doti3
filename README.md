@@ -12,4 +12,5 @@ My i3 config files  [![Build Status](https://travis-ci.org/t0mab/doti3.svg?branc
 * pamixer
 * dofi https://github.com/carnager/dofi
 * todo.sh https://github.com/ginatrapani/todo.txt-cli
+* xosd
 * more to come...
