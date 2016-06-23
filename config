@@ -8,7 +8,7 @@
 # alt key is the key !
 set $mod Mod1
 set $mod2 Mod4
-set $tray_output_destination DP1
+set $tray_output_destination eDP1
 
 # workspace definition
 set $wsp1 "1: term"
@@ -208,7 +208,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         position bottom
-        tray_output primary
+        #tray_output primary
         modifier $mod
         mode dock
         workspace_buttons yes
@@ -216,7 +216,7 @@ bar {
         font pango: Terminus Regular 12
         #font -xos4-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
         #status_command i3status -c ~/.i3/i3status.conf
-        tray_output $tray_output_destination
+        #tray_output $tray_output_destination
 
         colors {
                 background         #101010
@@ -349,16 +349,19 @@ exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf /dev/null
+exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf 
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
+# Script to check battery state
+exec --no-startup-id ~/Scripts/battery_check.sh
+
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
-exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
+#exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
-exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
+#exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
 # volume control
 bindsym $mod+KP_Add exec --no-startup-id "~/Scripts/vol.sh i"
@@ -368,8 +371,8 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id "~/Scripts/vol.sh i"
 bindsym XF86AudioLowerVolume exec --no-startup-id "~/Scripts/vol.sh d"
 bindsym XF86AudioMute exec --no-startup-id "~/Scripts/vol.sh m"
 
-bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec ~/Scripts/volnoti-bright.sh up
+bindsym XF86MonBrightnessDown exec ~/Scripts/volnoti-bright.sh down 
 
 # screencapture keys
 bindsym --release Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
@@ -407,7 +410,7 @@ bindsym $mod+Pause mode "$mode_system"
 # $mod2 keybindings
 bindsym $mod2+p exec $HOME/Scripts/rofipowermenu
 bindsym $mod2+Shift+s exec $HOME/Scripts/rofisearch
-bindsym $mod2+m exec $HOME/Scripts/rafimonitorlayout
+bindsym $mod2+m exec $HOME/Scripts/rofimonitorlayout
 bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
 bindsym $mod2+s exec --no-startup-id rofi -show ssh
 bindsym $mod+w exec --no-startup-id rofi -show window

@@ -81,7 +81,7 @@ conky.config = {
 conky.text = [[
 
 [ \
-  {"full_text": " [ ${exec sh ~/Scripts/cmusconky.sh} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  {"full_text": " [ ${exec sh ~/Scripts/cmusconky.sh} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${loadavg }", "color" : ${if_match "${loadavg 1}">="5"}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
@@ -95,7 +95,19 @@ conky.text = [[
   { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${fs_used_perc /}% ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [ ${exec python ~/Scripts/weather.py} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+${if_existing /sys/class/power_supply/AC/online 0}
+	{"full_text": "] [","color":"\#EEE8D5","separator":false,"separator_block_width":3},\
+	{"full_text": "${if_match ${battery_percent}<20} ${battery_percent}%","color":"\#dc322f", "separator" : false, "separator_block_width" : 3 },\
+	{"full_text":"${else}"},\
+	{"full_text":"${if_match ${battery_percent}<50} ${battery_percent}%","color":"\#b58900", "separator" : false, "separator_block_width" : 3 },\
+	{"full_text":"${else}"},\
+	{"full_text":"${if_match ${battery_percent}>=50} ${battery_percent}%","color":"\#859900", "separator" : false, "separator_block_width" : 3 },\
+	{"full_text":"${else}"},\
+	{"full_text":"${endif}${endif}${endif}"},\
+${else}
+	{"full_text": "] [  ${battery_percent}% ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+${endif}
+  { "full_text" : "] [ ${if_up wlo1}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${time %d %B %Y %H:%M}", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
