@@ -95,7 +95,7 @@ conky.text = [[
   { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${fs_used_perc /}% ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [ ${exec python ~/Scripts/weather.py} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [ ${exec cat /var/run/user/`id -u`/weather} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${time %d %B %Y %H:%M}", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \

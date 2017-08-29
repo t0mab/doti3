@@ -55,7 +55,6 @@ force_display_urgency_hint 500 ms
 bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="rofi -i -dmenu -p 'run:'"
 #bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
-#bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -75,10 +74,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+m move right
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+m move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -98,6 +97,9 @@ bindsym $mod2+f fullscreen global
 bindsym $mod+y fullscreen disable; floating enable; resize set 422 240; sticky enable; move position 933 518
 bindsym $mod+Shift+f fullscreen toggle fake
 bindsym $mod+g fullscreen disable fake; floating toggle; sticky toggle; move position 1200 21; resize set 400 300
+
+# default layout style
+workspace_layout tabbed 
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+s layout stacking
@@ -282,7 +284,7 @@ assign [class="(?i)qarte"] $wsp4
 assign [class="(?i)vlc"] $wsp4
 assign [instance="irc"] $wsp6
 
-# workspace_layout tabbed
+workspace_layout tabbed
 #force_display_urgency_hint 500 ms
 
 # floating window sizes
@@ -344,14 +346,19 @@ bindsym $mod+o scratchpad show
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id volnoti -t 1 &
-exec --no-startup-id unclutter -jitter 5 -idle 2 &
+exec --no-startup-id unclutter --jitter 5 &
 exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf /dev/null
+exec --no-startup-id compton -b --vsync opengl-swc --backend glx --xrender-sync --xrender-sync-fence --config $HOME/.config/.compton.conf
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
+# Automount
+exec --no-startup-id udiskie --smart-tray
+# Weather Script
+exec --no-startup-id /home/toma/Scripts/weather.py
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 # start items when login on specific workspaces
 exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
@@ -359,6 +366,8 @@ exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
 exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
+exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
+
 
 # volume control
 bindsym $mod+KP_Add exec --no-startup-id "~/Scripts/vol.sh i"
@@ -378,7 +387,7 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker /usr/bin/xscreensaver-command -l
+set $Locker '/usr/bin/xscreensaver-command -l'
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)
@@ -407,7 +416,7 @@ bindsym $mod+Pause mode "$mode_system"
 # $mod2 keybindings
 bindsym $mod2+p exec $HOME/Scripts/rofipowermenu
 bindsym $mod2+Shift+s exec $HOME/Scripts/rofisearch
-bindsym $mod2+m exec $HOME/Scripts/rafimonitorlayout
+bindsym $mod2+m exec $HOME/Scripts/rofimonitorlayout
 bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
 bindsym $mod2+s exec --no-startup-id rofi -show ssh
 bindsym $mod+w exec --no-startup-id rofi -show window
@@ -473,6 +482,25 @@ mode "$passthrough_keys" {
                 bindcode $mod+Shift+22 mode "default"
 }
 bindcode $mod+Shift+22 mode "$passthrough_keys"
+
+
+set $engine_mode "engine:  [g]oogle  google-[i]mages  [s]tack-overflow  [w]ikipedia  wolfram-[a]lpha  [y]outube"
+bindsym $mod+F1 mode $engine_mode
+mode $engine_mode {
+    bindsym space       exec engine-mode -g; mode "default"
+    bindsym $mod+space  exec engine-mode -g; mode "default"
+    bindsym g           exec engine-mode -g; mode "default"
+    bindsym i           exec engine-mode -i; mode "default"
+    bindsym s           exec engine-mode -s; mode "default"
+    bindsym w           exec engine-mode -w; mode "default"
+    bindsym a           exec engine-mode -a; mode "default"
+    bindsym y           exec engine-mode -y; mode "default"
+
+    bindsym Escape    mode "default"
+    bindsym BackSpace mode "default"
+    bindsym Return    mode "default"
+}
+
 
 # project workflow bindings
 #bindsym $mod+Shift+p exec coffee ~/.i3/i3-project-focus-workflow/newProjectWorkspaces.coffee
