@@ -23,6 +23,7 @@ rc:
 	@ln -sf "$$PWD/misc/scratchpad" "$(HOME)/Scripts/scratchpad"
 	@ln -sf "$$PWD/misc/vol.sh" "$(HOME)/Scripts/vol.sh"
 	@ln -sf "$$PWD/misc/windowtitleosd" "$(HOME)/Scripts/windowtitleosd"
+	@ln -sf "$$PWD/misc/windowname.py" "$(HOME)/Scripts/windowname.py"
 	@echo Installing... Done!
 
 clean:
@@ -39,4 +40,5 @@ clean:
 	-@rm -rfi "$(HOME)/Scripts/scratchpad"|| true
 	-@rm -rfi "$(HOME)/Scripts/vol.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/windowtitleosd"|| true
+	-@rm -rfi "$(HOME)/Scripts/windowname.py"|| true
 	@echo Cleaning... Done !

@@ -109,6 +109,8 @@ ${else}
 ${endif}
   { "full_text" : "] [ ${if_up wlo1}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
+  { "full_text" : "] [ ${exec cat /var/run/user/1000/weather} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+\
   { "full_text" : "] [", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${time %d %B %Y %H:%M}", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \

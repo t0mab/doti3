@@ -28,7 +28,8 @@ font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 12
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+#bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+Return exec urxvt -cd $(xcwd) 
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -54,6 +55,8 @@ force_display_urgency_hint 500 ms
 
 bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="rofi -i -dmenu -p 'run:'"
+bindsym $mod2+d exec rofi -show run -lines 10 -width 40 -padding 30 -separator-style "dash" -opacity "85" -font "Source Code Pro 16"
+#bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="rofi -i dmenu --combi-modi window,drun -show combi -lines 5 -eh 1"
 #bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 #bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 
@@ -100,6 +103,7 @@ bindsym $mod+Shift+f fullscreen toggle fake
 bindsym $mod+g fullscreen disable fake; floating toggle; sticky toggle; move position 1200 21; resize set 400 300
 
 # change container layout (stacked, tabbed, toggle split)
+workspace_layout tabbed
 bindsym $mod+s layout stacking
 bindsym $mod+z layout tabbed
 bindsym $mod+e layout toggle split
@@ -230,6 +234,10 @@ bar {
 
 }
 
+# Maybe soon switch to polybar
+# exec --no-startup-id polybar -c ~/.config/polybar/config -r laptop
+
+
 # theming
 hide_edge_borders both
 new_window pixel 3
@@ -306,6 +314,7 @@ for_window [window_role="About"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
 for_window [class="^Thunderbird$" instance="^Msgcompose$"] resize grow width 0 px or 30 ppt; move left
+for_window [title="i3 Shortcuts"] floating enable, move absolute position center
 #for_window [window_role="conversation"] floating enable, border normal
 #for_window [window_role="Msgcompose"] floating enable, border normal
 #for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
@@ -325,6 +334,7 @@ for_window [title="Current Media Information"] floating enable
 for_window [title="Select Folder"] Floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+for_window [window_role="bubble"] floating enable
 
 #window title format mess around with pango
 for_window [class="(?i)"] title_format "<span  font='10.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
@@ -340,12 +350,15 @@ for_window [class="(?i)firefox"] title_format "→ %title"
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
+# show i3keybinding
+bindsym $mod+F1 exec --no-startup-id ~/Scripts/i3cheatsheet.sh  
+
 # autostart
 exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id volnoti -t 1 &
-exec --no-startup-id unclutter -jitter 5 -idle 2 &
-exec --no-startup-id clipit
+exec --no-startup-id unclutter --jitter 5 &
+#exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
@@ -354,11 +367,22 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 # Script to check battery state
 exec --no-startup-id ~/Scripts/battery_check.sh
+# Script not to lock screen when watching videos fullscreen
+exec --no-startup-id ~/Scripts/disableautolock.sh 45 &
 
+# Automount stuff
+exec --no-startup-id udiskie --smart-tray
+# Start urxvtd daemon
+# exec --no-startup-id /usr/bin/urxvtd -q -f -o
+# Rename window name
+#exec --no-startup-id ~/Scripts/windowname.py
+# polkit gnome
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 # start items when login on specific workspaces
-exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
+# exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
+exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvtc'
+#exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
 #exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
@@ -381,7 +405,7 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker /usr/bin/xscreensaver-command -l
+set $Locker '/usr/bin/xscreensaver-command -l'
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)
