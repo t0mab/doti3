@@ -1,3 +1,5 @@
 node_modules
 cache/
 *.un~
+package-lock.json
+misc/.ropeproject
