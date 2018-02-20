@@ -29,7 +29,7 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
-bindsym $mod+Return exec urxvt -cd $(xcwd) 
+bindsym $mod+Return exec urxvt -cd $(xcwd)
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -351,7 +351,7 @@ bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # show i3keybinding
-bindsym $mod+F1 exec --no-startup-id ~/Scripts/i3cheatsheet.sh  
+bindsym $mod+F1 exec --no-startup-id ~/Scripts/i3cheatsheet.sh
 
 # autostart
 exec --no-startup-id /bin/sh ~/.fehbg
@@ -362,7 +362,7 @@ exec --no-startup-id unclutter --jitter 5 &
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf 
+exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 # Script to check battery state
@@ -396,7 +396,7 @@ bindsym XF86AudioLowerVolume exec --no-startup-id "~/Scripts/vol.sh d"
 bindsym XF86AudioMute exec --no-startup-id "~/Scripts/vol.sh m"
 
 bindsym XF86MonBrightnessUp exec ~/Scripts/volnoti-bright.sh up
-bindsym XF86MonBrightnessDown exec ~/Scripts/volnoti-bright.sh down 
+bindsym XF86MonBrightnessDown exec ~/Scripts/volnoti-bright.sh down
 
 # screencapture keys
 bindsym --release Print exec "scrot '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pictures/screenshots/'"
@@ -463,6 +463,18 @@ mode "$mode_screen" {
         bindsym Escape mode "default"
 }
 Bindsym $mod+F7 mode "$mode_screen"
+
+
+set $mode_move Move workspace (l)eft, (r)ight
+mode "$mode_move" {
+        bindsym l move workspace to output left
+        bindsym r move workspace to output right
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod2+n mode "$mode_move"
+
 
 # Fix graphics glitch
 for_window [class="^.*"] border pixel 1
