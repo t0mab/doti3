@@ -5,22 +5,22 @@
 res=$(echo "screensaver;lock;reload;restart;logout;suspend;shutdown" | rofi -sep ";" -dmenu -p "power :" -bw 0 -bc "#f3f4f5" -bg "#f3f4f5" -fg "#2f343f" -hlbg "#2f343f" -hlfg "#f3f4f5" -separator-style none -location 0 -width 250 -hide-scrollbar -padding 30)
 
 
-if [ $res = "lock" ]; then
+if [ "$res" = "lock" ]; then
     $HOME/Scripts/lock
 fi
-if [ $res = "logout" ]; then
+if [ "$res" = "logout" ]; then
     i3-msg exit
 fi
-if [ $res = "screensaver" ]; then
+if [ "$res" = "screensaver" ]; then
     xscreensaver-command -l
 fi
-if [ $res = "suspend" ]; then
+if [ "$res" = "suspend" ]; then
     systemctl suspend
 fi
-if [ $res = "restart" ]; then
+if [ "$res" = "restart" ]; then
     systemctl reboot
 fi
-if [ $res = "shutdown" ]; then
+if [ "$res" = "shutdown" ]; then
     systemctl poweroff
 fi
 exit 0
