@@ -81,7 +81,7 @@ conky.config = {
 conky.text = [[
 
 [ \
-  {"full_text": " [ ${exec sh ~/Scripts/cmusconky.sh} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  {"full_text": " [ ${if_running cmus}${texeci 5 ~/Scripts/cmusconky.sh}${endif} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${loadavg }", "color" : ${if_match "${loadavg 1}">="5"}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
