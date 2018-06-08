@@ -1,11 +1,11 @@
 help:
 	@echo 'Makefile for i3 dotfiles'
-	@echo '' 
+	@echo ''
 	@echo 'Usage:  make install'
 	@echo 'To clean files installed: make clean'
 	@echo 'Warning make sure you backup your stuff first!'
 
-install: rc 
+install: rc
 
 rc:
 	@mkdir -p "$$HOME/"{.i3,Scripts,.conky}
@@ -32,7 +32,7 @@ clean:
 	-@rm -rfi "$(HOME)/Scripts/battery_check.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/caja_nodesktop"|| true
 	-@rm -rfi "$(HOME)/Scripts/conky-wrapper"|| true
-	-@rm -rfi "$(HOME)/Scripts/cmusconky"|| true
+	-@rm -rfi "$(HOME)/Scripts/cmusconky.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/extmonitor.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/lock"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofimonitorlayout"|| true
