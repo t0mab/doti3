@@ -1,11 +1,11 @@
 help:
 	@echo 'Makefile for i3 dotfiles'
-	@echo '' 
+	@echo ''
 	@echo 'Usage:  make install'
 	@echo 'To clean files installed: make clean'
 	@echo 'Warning make sure you backup your stuff first!'
 
-install: rc 
+install: rc
 
 rc:
 	@mkdir -p "$$HOME/"{.i3,Scripts,.conky}
@@ -14,6 +14,7 @@ rc:
 	@ln -sf "$$PWD/misc/battery_check.sh" "$(HOME)/Scripts/battery_check.sh"
 	@ln -sf "$$PWD/misc/caja_nodesktop" "$(HOME)/Scripts/caja_nodesktop"
 	@ln -sf "$$PWD/misc/conky-i3bar" "$(HOME)/.conky/conky-i3bar"
+	@ln -sf "$$PWD/misc/cmusconky.sh" "$(HOME)/Scripts/cmusconky.sh"
 	@ln -sf "$$PWD/misc/conky-wrapper" "$(HOME)/Scripts/conky-wrapper"
 	@ln -sf "$$PWD/misc/extmonitor.sh" "$(HOME)/Scripts/extmonitor.sh"
 	@ln -sf "$$PWD/misc/lock.sh" "$(HOME)/Scripts/lock"
@@ -32,6 +33,7 @@ clean:
 	-@rm -rfi "$(HOME)/Scripts/battery_check.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/caja_nodesktop"|| true
 	-@rm -rfi "$(HOME)/Scripts/conky-wrapper"|| true
+	-@rm -rfi "$(HOME)/Scripts/cmusconky.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/extmonitor.sh"|| true
 	-@rm -rfi "$(HOME)/Scripts/lock"|| true
 	-@rm -rfi "$(HOME)/Scripts/rofimonitorlayout"|| true
