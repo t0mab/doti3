@@ -73,7 +73,27 @@ do
             TILES[$index]="Clone Screen ${MONITORS[$entry_a]} -> ${MONITORS[$entry_b]}"
             COMMANDS[$index]="xrandr --output ${MONITORS[$entry_a]} --auto \
                               --output ${MONITORS[$entry_b]} --auto --same-as ${MONITORS[$entry_a]}"
+            # xrandr --output LVDS1 --rate 60 --mode 1600x900 --fb 1600x900 --panning 1600x900* --output HDMI1 --mode 1600x900 --same-as LVDS1
+            index+=1
+        fi
+    done
+done
 
+
+##
+# Clone monitors panning
+##
+for entry_a in $(seq 0 $((${NUM_MONITORS}-1)))
+do
+    for entry_b in $(seq 0 $((${NUM_MONITORS}-1)))
+    do
+        if [ $entry_a != $entry_b ]
+        then
+            TILES[$index]="Clone Screen (panning) ${MONITORS[$entry_a]} -> ${MONITORS[$entry_b]}"
+            COMMANDS[$index]="xrandr --output ${MONITORS[$entry_a]} --rate 60  \
+                              --mode 1600x900 --fb 1600x900 --panning 1600x900 \
+                              --output ${MONITORS[$entry_b]} --mode 1600x900 --same-as ${MONITORS[$entry_a]}"
+            # xrandr --output LVDS1 --rate 60 --mode 1600x900 --fb 1600x900 --panning 1600x900* --output HDMI1 --mode 1600x900 --same-as LVDS1
             index+=1
         fi
     done
