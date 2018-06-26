@@ -358,11 +358,12 @@ exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id volnoti -t 1 &
 exec --no-startup-id unclutter --jitter 5 &
+exec --no-startup-id redshift 
 #exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton -b --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf
+exec --no-startup-id compton --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf &
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 # Script to check battery state
