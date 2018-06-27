@@ -265,7 +265,7 @@ workspace $wsp10 output DP1
 # primary Monitor
 #assign [class="(?i)terminator"] $wsp1
 assign [class="(?i)xterm"] $wsp1
-assign [class="(?i)urxvt"] $wsp1
+assign [class="(?i)urxvt" instance ="^((?!irc).)*$"] $wsp1
 assign [class="(?i)atom"] $wsp1
 assign [class="(?i)sublime-text"] $wsp1
 assign [class="(?i)bracket"] $wsp1
@@ -283,6 +283,7 @@ assign [class="(?i)pidgin"] $wsp9
 assign [class="(?i)MPlayer"] $wsp4
 assign [class="(?i)qarte"] $wsp4
 assign [class="(?i)vlc"] $wsp4
+assign [class="^URxvt$" instance="^__irc$"] $wsp6
 assign [instance="__irc"] $wsp6
 assign [instance="irc"] $wsp6
 workspace_layout tabbed
@@ -352,7 +353,7 @@ exec --no-startup-id unclutter --jitter 5 &
 #exec --no-startup-id pasystray
 #exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton -b --config $HOME/.config/.compton.conf
+exec --no-startup-id compton --config $HOME/.config/.compton.conf &
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --xrender-sync --xrender-sync-fence --config $HOME/.config/.compton.conf
 # compton -b --backend xr_glx_hybrid --vsync-use-glfinish --vsync drm --unredir-if-possible --paint-on-overlay
 
@@ -375,7 +376,7 @@ exec --no-startup-id i3-msg 'workspace $wsp1; exec /home/toma/Scripts/urxvtc.sh'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec evolution;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
-exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvtc -name "__irc" -e "/usr/bin/tmux a -t irc"'
+exec --no-startup-id urxvtc -name __irc -e /usr/bin/tmux a -t irc
 
 #exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
 
