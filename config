@@ -9,12 +9,34 @@
 set $mod Mod1
 set $mod2 Mod4
 set $tray_output_destination DP1
+set $height 34
+
+# colors definition
+
+set_from_resource $darkred     color1  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $cyan        color14 #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $white       color15 #000000
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
 
 # workspace definition
 set $wsp1 "1: term"
 set $wsp2 "2: www "
 set $wsp3 "3: mail"
-set $wsp4 "4:  media"
+set $wsp4 "4: media"
 set $wsp5 "5: virt"
 set $wsp6 "6: irc"
 set $wsp7 "7: fun"
@@ -49,12 +71,8 @@ bindsym $mod+Shift+s sticky toggle
 force_display_urgency_hint 500 ms
 
 # start dmenu (a program launcher)
-# bindsym $mod+p exec dmenu_run
-#bindsym $mod+p exec --no-startup-id j4-dmenu-desktop
-
 bindsym $mod+p exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="rofi -i -dmenu -p 'run:'"
-#bindsym $mod2+space exec --no-startup-id j4-dmenu-desktop --dmenu="dmenu -i -l 20 -sb '#40FF00' -sf '#586c75' -fn '-xos4-terminus-medium-r-*-*-16-*'"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -221,13 +239,23 @@ bar {
         tray_output $tray_output_destination
 
         colors {
-                background         #101010
-                statusline         #b2b2b2
-                # class              border  backgr  text  indicator
-                focused_workspace  #FFFFFF #101010 #f7f7f7
-                active_workspace   #1c1c1c #121212 #f7f7f7 #444444
-                inactive_workspace #080808 #101010 #262626 #222222
-                urgent_workspace   #e4e4e4 #121212 #e4e4e4
+                # background         #101010
+                # statusline         #b2b2b2
+                # # class              border  backgr  text  indicator
+                # focused_workspace  #FFFFFF #101010 #f7f7f7
+                # active_workspace   #1c1c1c #121212 #f7f7f7 #444444
+                # inactive_workspace #080808 #101010 #262626 #222222
+                # urgent_workspace   #e4e4e4 #121212 #e4e4e4
+                statusline         $white
+                background         $transparent
+                separator          $transparent
+
+        #                          BORDER       BACKGROUND   TEXT
+                focused_workspace  $transparent $transparent $darkwhite
+                inactive_workspace $transparent $transparent $white
+                active_workspace   $transparent $transparent $white
+                urgent_workspace   $darkred     $darkred     $transparent
+                binding_mode       $darkred     $darkred     $transparent
         }
 
 }
@@ -238,18 +266,19 @@ new_window pixel 3
 new_float normal 2
 
 # class                  border  backgr. text    indicator
-client.background        #060606
+#client.background        #060606
 
 # statusline
-client.focused           #303030 #060606 #949494 #eeeeee
-client.focused_inactive  #121212 #060606 #262626 #121212
-client.unfocused         #1c1c1c #060606 #262626 #444444
-client.urgent            #5f0000 #060606 #5f0000 #870000
-client.placeholder       #323537 #323537 #ffffff #323537
-#client.focused          #FFFFFF #FFFFFF #000000 #FFFFFF
-#client.focused_inactive #FFFFFF #FFFFFF #888888 #FFFFFF
-#client.unfocused        #FFFFFF #FFFFFF #888888 #FFFFFF
-#client.urgent           #323537 #323537 #ffffff #323537
+# client.focused           #303030 #060606 #949494 #eeeeee
+# client.focused_inactive  #121212 #060606 #262626 #121212
+# client.unfocused         #1c1c1c #060606 #262626 #444444
+# client.urgent            #5f0000 #060606 #5f0000 #870000
+# client.placeholder       #323537 #323537 #ffffff #323537
+client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background       $black
 
 workspace $wsp1 output DP1
 workspace $wsp2 output DP2
@@ -287,7 +316,6 @@ assign [class="^URxvt$" instance="^__irc$"] $wsp6
 assign [instance="__irc"] $wsp6
 assign [instance="irc"] $wsp6
 workspace_layout tabbed
-#force_display_urgency_hint 500 ms
 
 # floating window sizes
 floating_minimum_size 96 x 25
@@ -306,6 +334,7 @@ for_window [class="!^Thunderbird$" instance="Msgcompose"] floating enable
 for_window [title="Preferences$"] floating enable
 for_window [window_role="pop-up"] floating enable
 for_window [window_role="task_dialog"] floating enable
+for_window [window_role="bubble"] floating enable
 for_window [window_role="About"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
@@ -329,9 +358,12 @@ for_window [title="Current Media Information"] floating enable
 for_window [title="Select Folder"] Floating enable
 for_window [window_type="dialog"] floating enable
 for_window [window_type="menu"] floating enable
+for_window [class="(?i)nm-connection-editor"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable, move position mouse
+for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
 
 #window title format mess around with pango
-for_window [class="(?i)"] title_format "<span  font='10.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
+for_window [class="(?i)"] title_format "<span font='10.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
 
 for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad show; move position 865px 512px; move scratchpad
 # Enable tabbed mode
@@ -340,18 +372,24 @@ for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad 
 # Custom window title
 for_window [class="(?i)firefox"] title_format "→ %title"
 
+# Bold text for window title
+#for_window [class=".*"] title_format "<span foreground='white'><b>%title</b></span>"
+
+
 # scratchpad
 bindsym $mod+m move scratchpad
 bindsym $mod+o scratchpad show
 
 # autostart
 exec --no-startup-id /bin/sh ~/.fehbg
-exec --no-startup-id xscreensaver -nosplash
+exec --no-startup-id xscreensaver -nosplash &
 exec --no-startup-id volnoti -t 1 &
 exec --no-startup-id unclutter --jitter 5 &
-#exec --no-startup-id clipit
-#exec --no-startup-id pasystray
-#exec --no-startup-id nm-applet
+exec --no-startup-id xedgewarp -b
+#exec --no-startup-id clipit &
+#exec --no-startup-id pasystray &
+#exec --no-startup-id nm-applet &
+
 # use compton as composite manager
 exec --no-startup-id compton --config $HOME/.config/.compton.conf &
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --xrender-sync --xrender-sync-fence --config $HOME/.config/.compton.conf
