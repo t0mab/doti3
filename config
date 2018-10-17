@@ -12,7 +12,6 @@ set $tray_output_destination DP1
 set $height 34
 
 # colors definition
-
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
 set_from_resource $darkgreen   color2  #000000
@@ -44,7 +43,7 @@ set $wsp8 "8: office"
 set $wsp9 "9: chat"
 set $wsp10 "10: code"
 
-font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 12
+font pango:Hack, Inconsolata, Icons, WeatherIcons, FontAwesome 12
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -339,6 +338,7 @@ for_window [window_role="About"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
 for_window [class="^Thunderbird$" instance="^Msgcompose$"] resize grow width 0 px or 30 ppt; move left
+for_window [window_role="buddy_list"] layout tabbed
 #for_window [window_role="conversation"] floating enable, border normal
 #for_window [window_role="Msgcompose"] floating enable, border normal
 #for_window [class="^Thunderbird$" instance="^Msgcompose$"] floating enable
