@@ -9,6 +9,27 @@
 set $mod Mod1
 set $mod2 Mod4
 set $tray_output_destination eDP1
+set $height 34
+
+# colors definition
+set_from_resource $darkred     color1  #000000
+set_from_resource $red         color9  #000000
+set_from_resource $darkgreen   color2  #000000
+set_from_resource $green       color10 #000000
+set_from_resource $darkyellow  color3  #000000
+set_from_resource $yellow      color11 #000000
+set_from_resource $darkblue    color4  #000000
+set_from_resource $blue        color12 #000000
+set_from_resource $darkmagenta color5  #000000
+set_from_resource $magenta     color13 #000000
+set_from_resource $darkcyan    color6  #000000
+set_from_resource $cyan        color14 #000000
+set_from_resource $darkwhite   color7  #000000
+set_from_resource $white       color15 #000000
+# Use custom colors for black
+set $black       #282828
+set $darkblack   #1d2021
+set $transparent #00000000
 
 # workspace definition
 set $wsp1 "1: term"
@@ -19,7 +40,7 @@ set $wsp5 "5: virt"
 set $wsp6 "6: irc"
 set $wsp7 "7: fun"
 set $wsp8 "8: office"
-set $wsp9 "9: chat"
+set $wsp9 "9: msg"
 set $wsp10 "10: code"
 
 font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 12
@@ -223,13 +244,23 @@ bar {
         #tray_output $tray_output_destination
 
         colors {
-                background         #101010
-                statusline         #b2b2b2
-                # class              border  backgr  text  indicator
-                focused_workspace  #FFFFFF #101010 #f7f7f7
-                active_workspace   #1c1c1c #121212 #f7f7f7 #444444
-                inactive_workspace #080808 #101010 #262626 #222222
-                urgent_workspace   #e4e4e4 #121212 #e4e4e4
+                # background         #101010
+                # statusline         #b2b2b2
+                # # class              border  backgr  text  indicator
+                # focused_workspace  #FFFFFF #101010 #f7f7f7
+                # active_workspace   #1c1c1c #121212 #f7f7f7 #444444
+                # inactive_workspace #080808 #101010 #262626 #222222
+                # urgent_workspace   #e4e4e4 #121212 #e4e4e4
+                statusline         $white
+                background         $transparent
+                separator          $transparent
+
+        #                          BORDER       BACKGROUND   TEXT
+                focused_workspace  $transparent $transparent $darkwhite
+                inactive_workspace $transparent $transparent $white
+                active_workspace   $transparent $transparent $white
+                urgent_workspace   $darkred     $darkred     $transparent
+                binding_mode       $darkred     $darkred     $transparent
         }
 
 }
@@ -244,18 +275,19 @@ new_window pixel 3
 new_float normal 2
 
 # class                  border  backgr. text    indicator
-client.background        #060606
+#client.background        #060606
 
 # statusline
-client.focused           #303030 #060606 #949494 #eeeeee
-client.focused_inactive  #121212 #060606 #262626 #121212
-client.unfocused         #1c1c1c #060606 #262626 #444444
-client.urgent            #5f0000 #060606 #5f0000 #870000
-client.placeholder       #323537 #323537 #ffffff #323537
-#client.focused          #FFFFFF #FFFFFF #000000 #FFFFFF
-#client.focused_inactive #FFFFFF #FFFFFF #888888 #FFFFFF
-#client.unfocused        #FFFFFF #FFFFFF #888888 #FFFFFF
-#client.urgent           #323537 #323537 #ffffff #323537
+# client.focused           #303030 #060606 #949494 #eeeeee
+# client.focused_inactive  #121212 #060606 #262626 #121212
+# client.unfocused         #1c1c1c #060606 #262626 #444444
+# client.urgent            #5f0000 #060606 #5f0000 #870000
+# client.placeholder       #323537 #323537 #ffffff #323537
+client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.unfocused        $black      $black      $white      $darkblack  $darkblack
+client.focused_inactive $black      $black      $white      $darkblack  $darkblack
+client.urgent           $darkred    $darkred    $black      $darkred    $darkred
+client.background       $black
 
 workspace $wsp1 output DP1
 workspace $wsp2 output DP2
@@ -314,6 +346,7 @@ for_window [window_role="About"] floating enable
 for_window [class="^Pidgin$" window_role="^buddy$"] resize shrink width 30 ppt; move left
 for_window [class="^Pidgin$" window_role="^conversation$"] resize grow width 0 px or 30 ppt; move left
 for_window [class="^Thunderbird$" instance="^Msgcompose$"] resize grow width 0 px or 30 ppt; move left
+for_window [window_role="buddy_list"] layout tabbed
 for_window [title="i3 Shortcuts"] floating enable, move absolute position center
 #for_window [window_role="conversation"] floating enable, border normal
 #for_window [window_role="Msgcompose"] floating enable, border normal
@@ -358,12 +391,15 @@ exec --no-startup-id /bin/sh ~/.fehbg
 exec --no-startup-id xscreensaver -nosplash
 exec --no-startup-id volnoti -t 1 &
 exec --no-startup-id unclutter --jitter 5 &
-exec --no-startup-id redshift 
+#exec --no-startup-id redshift
+# Start redshift in auto mode and fallback to Strasbourg
+exec --no-startup-id redshift-gtk || redshift -l 48.34:7.45
 #exec --no-startup-id clipit
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
 exec --no-startup-id compton --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf &
+#exec --no-startup-id compton --vsync opengl-swc --backend xrender --config $HOME/.config/.compton.conf &
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 # Script to check battery state
@@ -383,9 +419,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # start items when login on specific workspaces
 # exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvtc'
-#exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium'
+#exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
 #exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
-exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 20 && pidgin'
+exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 20 && pidgin -f'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
 # volume control
@@ -440,7 +476,7 @@ bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
 bindsym $mod2+s exec --no-startup-id rofi -show ssh
 bindsym $mod+w exec --no-startup-id rofi -show window
 # launch chromium
-bindsym $mod2+w exec "chromium"
+bindsym $mod2+w exec "chromium --password-store=gnome"
 # launch caja
 bindsym $mod2+c  exec --no-startup-id scratchpad caja_nodesktop 1100 700 caja
 #launch sublime text
