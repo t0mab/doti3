@@ -15,7 +15,7 @@ STREAM=$(echo "$CMUS_REMOTE" | grep stream | head -n 3 | sort -r | cut -d ' ' -f
 if [ "$STATUS" == "stopped" ];then
     echo ""
 elif [ "$STATUS" == "paused" ];then
-    echo "$PLAYING (paused)"
+    echo "$PLAYING (paused)" | sed 's|&|&amp;|g'
 else
-    echo "$PLAYING"
+    echo "$PLAYING" | sed 's|&|&amp;|g'
 fi

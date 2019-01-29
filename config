@@ -40,7 +40,7 @@ set $wsp5 "5: virt"
 set $wsp6 "6: irc"
 set $wsp7 "7: fun"
 set $wsp8 "8: office"
-set $wsp9 "9: chat"
+set $wsp9 "9: msg"
 set $wsp10 "10: code"
 
 font pango:Hack, Inconsolata, Icons, WeatherIcons, FontAwesome 12
@@ -297,20 +297,26 @@ assign [class="(?i)urxvt" instance ="^((?!irc).)*$"] $wsp1
 assign [class="(?i)atom"] $wsp1
 assign [class="(?i)sublime-text"] $wsp1
 assign [class="(?i)bracket"] $wsp1
+assign [class="(?i)MPlayer"] $wsp4
+assign [class="(?i)qarte"] $wsp4
+assign [class="(?i)vlc"] $wsp4
+assign [class="(?i)code-oss"] $wsp10
 
 # Right Monitor
 assign [class="(?i)firefox"] $wsp2
 assign [class="(?i)chromium"] $wsp2
+for_window [class="chromium"] move to workspace $wsp2
+for_window [class="libreoffice"] move to workspace $wsp8
 assign [class="(?i)libreoffice"] $wsp8
+assign [class="(?i)libreoffice-startcenter"] $wsp8
+assign [class="^(?i)libreoffice-*"] $wsp8
 assign [class="(?i)virtualbox"] $wsp7
 
 # Left Monitor
 assign [class="(?i)thunderbird"] $wsp3
 assign [class="(?i)evolution"] $wsp3
 assign [class="(?i)pidgin"] $wsp9
-assign [class="(?i)MPlayer"] $wsp4
-assign [class="(?i)qarte"] $wsp4
-assign [class="(?i)vlc"] $wsp4
+assign [class="(?i)rocket.chat"] $wsp9
 assign [class="^URxvt$" instance="^__irc$"] $wsp6
 assign [instance="__irc"] $wsp6
 assign [instance="irc"] $wsp6
@@ -370,6 +376,8 @@ for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad 
 #for_window [class="Firefox|Chromium"] focus child, layout tabbed, focus
 
 # Custom window title
+#title_align center #left|center|right
+for_window [class=".*"] title_format "<b>%title</b>"
 for_window [class="(?i)firefox"] title_format "→ %title"
 
 # Bold text for window title
@@ -391,18 +399,17 @@ exec --no-startup-id xedgewarp -b
 #exec --no-startup-id nm-applet &
 
 # use compton as composite manager
-exec --no-startup-id compton --config $HOME/.config/.compton.conf &
+exec --no-startup-id compton -b --config $HOME/.config/.compton.conf &
+#exec --no-startup-id compton --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf &
 #exec --no-startup-id compton -b --vsync opengl-swc --backend glx --xrender-sync --xrender-sync-fence --config $HOME/.config/.compton.conf
 # compton -b --backend xr_glx_hybrid --vsync-use-glfinish --vsync drm --unredir-if-possible --paint-on-overlay
-
-
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
 # Automount
 exec --no-startup-id udiskie --smart-tray
 # Weather Script
 exec --no-startup-id /home/toma/Scripts/weather.py
-exec numlockx
+exec --no-startup-id numlockx
 exec --no-startup-id /home/toma/Scripts/disableautolock.sh &
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
@@ -413,7 +420,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id i3-msg 'workspace $wsp1; exec /home/toma/Scripts/urxvtc.sh'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
 exec --no-startup-id i3-msg 'workspace $wsp3; exec evolution;layout tabbed'
-exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin'
+exec --no-startup-id i3-msg 'workspace $wsp9; exec pidgin -f'
 exec --no-startup-id urxvtc -name __irc -e /usr/bin/tmux a -t irc
 
 #exec --no-startup-id i3-msg 'exec /usr/bin/pulseaudio --start'
@@ -437,7 +444,7 @@ bindsym --release Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker '/usr/bin/xscreensaver-command -l'
+set $Locker /usr/bin/xscreensaver-command -l
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)
