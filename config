@@ -35,7 +35,7 @@ set $transparent #00000000
 set $wsp1 "1: term"
 set $wsp2 "2: www "
 set $wsp3 "3: mail"
-set $wsp4 "4:  media"
+set $wsp4 "4: media"
 set $wsp5 "5: virt"
 set $wsp6 "6: irc"
 set $wsp7 "7: fun"
@@ -304,8 +304,9 @@ workspace $wsp10 output DP1
 #assign [class="(?i)terminator"] $wsp1
 assign [class="(?i)xterm"] $wsp1
 assign [class="(?i)urxvt"] $wsp1
-assign [class="(?i)atom"] $wsp1
-assign [class="(?i)sublime-text"] $wsp1
+assign [class="(?i)atom"] $wsp10
+assign [class="(?i)sublime-text"] $wsp10
+assign [class="(?i)rocket.chat"] $wsp9
 assign [class="(?i)bracket"] $wsp1
 
 # Right Monitor
@@ -398,7 +399,7 @@ exec --no-startup-id redshift-gtk || redshift -l 48.34:7.45
 #exec --no-startup-id pasystray
 exec --no-startup-id nm-applet
 # use compton as composite manager
-exec --no-startup-id compton --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf &
+#exec --no-startup-id compton --vsync opengl-swc --backend glx --config $HOME/.config/.compton.conf &
 #exec --no-startup-id compton --vsync opengl-swc --backend xrender --config $HOME/.config/.compton.conf &
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 exec --no-startup-id dropbox
@@ -419,9 +420,9 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # start items when login on specific workspaces
 # exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvtc'
-#exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
-#exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
-exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 20 && pidgin -f'
+exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
+exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
+exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 200 && pidgin -f'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
 # volume control
@@ -442,7 +443,7 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker '/usr/bin/xscreensaver-command -l'
+set $Locker /usr/bin/xscreensaver-command -l
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)

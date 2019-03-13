@@ -1,30 +1,21 @@
 #!/bin/bash
-# conky_cmus_infos.sh <arpinux@2013>
-########################################################################
-# print cmus info in conky
-# format:
-# ${if_running cmus}${texeci 5 /path/to/script}${endif}
-########################################################################
-## query datas #########################################################
-# status
-STATUS=$(cmus-remote -Q | grep status | awk '{print $2}')
-# title
-TITLE=$(cmus-remote -Q | grep title | cut -d " " -f 3-)
-# artist
-ARTIST=$(cmus-remote -Q | grep -m 1 artist | cut -d " " -f 3-)
-# album
-ALBUM=$(cmus-remote -Q | grep -m 1 album | cut -d " " -f 3-)
-# time
-TIMECUR=$(cmus-remote -Q | grep position | awk '{print $2}')
-TIMETOT=$(cmus-remote -Q | grep duration | awk '{print $2}')
-TIMEPRC=$(( (($TIMECUR * 100)) / $TIMETOT ))
-# volume
-VOL=$(cmus-remote -Q | grep vol_left | awk '{print $3}')
-## output ##############################################################
+CMUS_REMOTE=$(cmus-remote -Q)
+INSTANCE=$(echo -e "$CMUS_REMOTE" | wc -l)
+
+[ $INSTANCE = 1 ] && exit 0
+
+STATUS=$(echo "$CMUS_REMOTE" | grep status | awk '{print $2}' )
+TITLE=$(echo "$CMUS_REMOTE" | grep title | cut -d ' ' -f 3- )
+ARTIST=$(echo "$CMUS_REMOTE" | grep -m1 artist | cut -d ' ' -f 3- )
+STREAM=$(echo "$CMUS_REMOTE" | grep stream | head -n 3 | sort -r | cut -d ' ' -f 2- | head -n 1 )
+#cmus-updatepidgin artist "$ARTIST" title "$TITLE"
+
+[ -z "$STREAM" ] && PLAYING="playing : $TITLE by $ARTIST" || PLAYING="radio $TITLE : $STREAM"
+
 if [ "$STATUS" == "stopped" ];then
     echo ""
 elif [ "$STATUS" == "paused" ];then
-    echo "$TITLE by $ARTIST (paused)"
+    echo "$PLAYING (paused)" | sed 's|&|&amp;|g'
 else
-    echo "$STATUS $TITLE by $ARTIST"
+    echo "$PLAYING" | sed 's|&|&amp;|g'
 fi
