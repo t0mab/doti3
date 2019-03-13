@@ -7,7 +7,7 @@ INSTANCE=$(echo -e "$CMUS_REMOTE" | wc -l)
 STATUS=$(echo "$CMUS_REMOTE" | grep status | awk '{print $2}' )
 TITLE=$(echo "$CMUS_REMOTE" | grep title | cut -d ' ' -f 3- )
 ARTIST=$(echo "$CMUS_REMOTE" | grep -m1 artist | cut -d ' ' -f 3- )
-STREAM=$(echo "$CMUS_REMOTE" | grep stream | head -n 3 | sort -r | cut -d ' ' -f 3- )
+STREAM=$(echo "$CMUS_REMOTE" | grep stream | head -n 3 | sort -r | cut -d ' ' -f 2- | head -n 1 )
 #cmus-updatepidgin artist "$ARTIST" title "$TITLE"
 
 [ -z "$STREAM" ] && PLAYING="playing : $TITLE by $ARTIST" || PLAYING="radio $TITLE : $STREAM"

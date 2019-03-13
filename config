@@ -15,7 +15,7 @@ set $height 34
 set_from_resource $darkred     color1  #000000
 set_from_resource $red         color9  #000000
 set_from_resource $darkgreen   color2  #000000
-set_from_resource $green       color10 #000000
+set_from_resource $green       color10 #000000 
 set_from_resource $darkyellow  color3  #000000
 set_from_resource $yellow      color11 #000000
 set_from_resource $darkblue    color4  #000000
@@ -250,7 +250,7 @@ bar {
                 separator          $transparent
 
         #                          BORDER       BACKGROUND   TEXT
-                focused_workspace  $transparent $transparent $darkwhite
+                focused_workspace  $transparent $transparent #40FF00
                 inactive_workspace $transparent $transparent $white
                 active_workspace   $transparent $transparent $white
                 urgent_workspace   $darkred     $darkred     $transparent
@@ -273,7 +273,7 @@ new_float normal 2
 # client.unfocused         #1c1c1c #060606 #262626 #444444
 # client.urgent            #5f0000 #060606 #5f0000 #870000
 # client.placeholder       #323537 #323537 #ffffff #323537
-client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.focused          $black      $black      #40FF00  $darkblack  $darkblack
 client.unfocused        $black      $black      $white      $darkblack  $darkblack
 client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
@@ -369,7 +369,7 @@ for_window [class="(?i)pavucontrol"] floating enable, move position mouse
 for_window [class="(?i)pavucontrol" instance="pavucontrol-bar"] move down $height px
 
 #window title format mess around with pango
-for_window [class="(?i)"] title_format "<span font='10.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
+for_window [class="(?i)"] title_format "<span font='11.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
 
 for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad show; move position 865px 512px; move scratchpad
 # Enable tabbed mode
@@ -377,11 +377,14 @@ for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad 
 
 # Custom window title
 #title_align center #left|center|right
-for_window [class=".*"] title_format "<b>%title</b>"
+#for_window [class=".*"] title_format "<b>%title</b>"
 for_window [class="(?i)firefox"] title_format "→ %title"
 
 # Bold text for window title
 #for_window [class=".*"] title_format "<span foreground='white'><b>%title</b></span>"
+
+# csd-ruined apps
+for_window [class="^CSDRuinedApp$"] border normal
 
 
 # scratchpad
