@@ -4,7 +4,7 @@ conky.config = {
 -- Modified: 27.11.2011 - mseed : http://www.fastlinux.eu
 
 --##
--- use_xft yes
+   use_xft = false,
 -- xftfont Helvetica:size=15
 -- xftalpha 0.9
 
@@ -52,7 +52,9 @@ conky.config = {
 --# set to 1 to disable averaging
     cpu_avg_samples = 4,
 
-    max_text_width = 0,
+    max_text_width = 20,
+    -- text_buffer_size = 1024,
+
 
 --# Sensors examples
 -- Top Process: ${top name 1}
@@ -81,10 +83,8 @@ conky.config = {
 conky.text = [[
 
 [ \
-  {"full_text": " [ ${if_running cmus}${texeci 5 ~/Scripts/cmusconky.sh}${endif} vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : "${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : "${loadavg }", "color" : ${if_match "${loadavg 1}">="5"}"\#DC322F" ${else}"\#40FF00"${endif}, "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${if_running mocp}[  ${execi mocp -Q '%artist %album %title' | iconv -t utf8 } ]${endif} ${if_running cmus}[  ${texeci 5 ~/Scripts/cmusconky.sh} ]${endif} [ vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [ cpu ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${cpu cpu0}%", "color" : ${if_match ${cpu cpu0}>50}"\#DC322F"${else}"\#40FF00"${endif}, "min_width" : 25, "separator" : false, "separator_block_width" : 3 }, \
@@ -107,7 +107,7 @@ ${if_existing /sys/class/power_supply/AC/online 0}
 ${else}
     {"full_text": "] [  ${battery_percent}% ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 ${endif}
-  { "full_text" : "] [ ${if_up wlo1}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [ ${if_up  wlp2s0}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [ ${exec cat /var/run/user/`id -u`/weather} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
