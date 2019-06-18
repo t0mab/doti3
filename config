@@ -43,7 +43,7 @@ set $wsp8 "8: office"
 set $wsp9 "9: msg"
 set $wsp10 "10: code"
 
-font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 12
+font pango:Inconsolata, Icons, WeatherIcons, FontAwesome 13
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -238,7 +238,7 @@ bar {
         mode dock
         workspace_buttons yes
         status_command $HOME/Scripts/conky-wrapper
-        font pango: Terminus Regular 12
+        font pango: Terminus Regular 14
         #font -xos4-terminus-*-*-*-*-12-*-*-*-*-*-iso10646-1
         #status_command i3status -c ~/.i3/i3status.conf
         #tray_output $tray_output_destination
@@ -256,7 +256,7 @@ bar {
                 separator          $transparent
 
         #                          BORDER       BACKGROUND   TEXT
-                focused_workspace  $transparent $transparent $darkwhite
+                focused_workspace  $transparent $transparent #40FF00
                 inactive_workspace $transparent $transparent $white
                 active_workspace   $transparent $transparent $white
                 urgent_workspace   $darkred     $darkred     $transparent
@@ -283,7 +283,7 @@ new_float normal 2
 # client.unfocused         #1c1c1c #060606 #262626 #444444
 # client.urgent            #5f0000 #060606 #5f0000 #870000
 # client.placeholder       #323537 #323537 #ffffff #323537
-client.focused          $black      $black      $darkwhite  $darkblack  $darkblack
+client.focused          $black      $black      #40FF00  $darkblack  $darkblack
 client.unfocused        $black      $black      $white      $darkblack  $darkblack
 client.focused_inactive $black      $black      $white      $darkblack  $darkblack
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
@@ -371,7 +371,7 @@ for_window [window_type="menu"] floating enable
 for_window [window_role="bubble"] floating enable
 
 #window title format mess around with pango
-for_window [class="(?i)"] title_format "<span  font='10.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
+for_window [class="(?i)"] title_format "<span  font='11.5' weight='light' foreground='#C7C7C7'> ⧠</span> %title "
 
 for_window [instance="scratchpad"] floating enable; move scratchpad; scratchpad show; move position 865px 512px; move scratchpad
 # Enable tabbed mode
@@ -419,9 +419,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 # start items when login on specific workspaces
 # exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvtc'
+exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvt'
 exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
-exec --no-startup-id i3-msg 'workspace $wsp3; exec thunderbird;layout tabbed'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 200 && pidgin -f'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
@@ -443,7 +442,7 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker /usr/bin/xscreensaver-command -l
+set $Locker "/usr/bin/xscreensaver-command -l"
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)

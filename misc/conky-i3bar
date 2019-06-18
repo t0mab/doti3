@@ -1,10 +1,9 @@
 conky.config = {
 --## Conky configuration file
 --# Output is printed to the console -> i3bar
--- Modified: 27.11.2011 - mseed : http://www.fastlinux.eu
 
 --##
-   use_xft = false,
+-- use_xft = false,
 -- xftfont Helvetica:size=15
 -- xftalpha 0.9
 
@@ -52,8 +51,8 @@ conky.config = {
 --# set to 1 to disable averaging
     cpu_avg_samples = 4,
 
-    max_text_width = 20,
-    -- text_buffer_size = 1024,
+    max_text_width = 0,
+    text_buffer_size = 256,
 
 
 --# Sensors examples
@@ -83,7 +82,7 @@ conky.config = {
 conky.text = [[
 
 [ \
-  { "full_text" : " ${if_running mocp}[  ${execi mocp -Q '%artist %album %title' | iconv -t utf8 } ]${endif} ${if_running cmus}[  ${texeci 5 ~/Scripts/cmusconky.sh} ]${endif} [ vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${exec ~/Scripts/mocconky.sh} [ vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : " ${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [ cpu ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
