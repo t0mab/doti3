@@ -50,7 +50,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
-bindsym $mod+Return exec urxvt -cd $(xcwd)
+#bindsym $mod+Return exec urxvt -cd $(xcwd)
+bindsym $mod+Return exec termite -d $(xcwd)
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -289,21 +290,22 @@ client.focused_inactive $black      $black      $white      $darkblack  $darkbla
 client.urgent           $darkred    $darkred    $black      $darkred    $darkred
 client.background       $black
 
-workspace $wsp1 output DP1
-workspace $wsp2 output DP2
-workspace $wsp3 output VGA1
-workspace $wsp4 output DP1
-workspace $wsp5 output DP2
-workspace $wsp6 output VGA1
-workspace $wsp7 output DP1
-workspace $wsp8 output DP2
-workspace $wsp9 output VGA1
-workspace $wsp10 output DP1
+workspace $wsp1 output DP1-1
+workspace $wsp2 output DP1-2
+workspace $wsp3 output DP1-1
+workspace $wsp4 output DP1-2
+workspace $wsp5 output DP1-2
+workspace $wsp6 output DP1-1
+workspace $wsp7 output DP1-2
+workspace $wsp8 output DP1-2
+workspace $wsp9 output DP1-1
+workspace $wsp10 output DP1-1
 
 # primary Monitor
 #assign [class="(?i)terminator"] $wsp1
 assign [class="(?i)xterm"] $wsp1
 assign [class="(?i)urxvt"] $wsp1
+assign [class="(?i)termite"] $wsp1
 assign [class="(?i)atom"] $wsp10
 assign [class="(?i)sublime-text"] $wsp10
 assign [class="(?i)rocket.chat"] $wsp9
@@ -312,6 +314,7 @@ assign [class="(?i)bracket"] $wsp1
 # Right Monitor
 assign [class="(?i)firefox"] $wsp2
 assign [class="(?i)chromium"] $wsp2
+assign [class="(?i)brave"] $wsp2
 assign [class="(?i)libreoffice"] $wsp8
 assign [class="(?i)virtualbox"] $wsp7
 
@@ -419,15 +422,18 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 #exec /usr/lib/mate-polkit/polkit-mate-authentication-agent-1 # PolicyKit
 # start items when login on specific workspaces
 # exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
-exec --no-startup-id i3-msg 'workspace $wsp1; exec urxvt'
-exec --no-startup-id i3-msg 'workspace $wsp2; exec chromium --password-store=gnome'
+exec --no-startup-id i3-msg 'workspace $wsp1; exec termite'
+exec --no-startup-id i3-msg 'workspace $wsp2; exec brave --password-store=gnome'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 200 && pidgin -f'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
 # volume control
 bindsym $mod+KP_Add exec --no-startup-id "~/Scripts/vol.sh i"
+bindsym $mod+Prior exec --no-startup-id "~/Scripts/vol.sh i"
 bindsym $mod+KP_Subtract exec --no-startup-id "~/Scripts/vol.sh d"
+bindsym $mod+Next exec --no-startup-id "~/Scripts/vol.sh d"
 bindsym $mod+KP_Enter exec --no-startup-id "~/Scripts/vol.sh m"
+bindsym $mod+End exec --no-startup-id "~/Scripts/vol.sh m"
 bindsym XF86AudioRaiseVolume exec --no-startup-id "~/Scripts/vol.sh i"
 bindsym XF86AudioLowerVolume exec --no-startup-id "~/Scripts/vol.sh d"
 bindsym XF86AudioMute exec --no-startup-id "~/Scripts/vol.sh m"
@@ -442,7 +448,7 @@ bindsym Control+Print exec "scrot -s '%Y-%m-%d-%H:%M_$wx$h.png' -e 'mv $f ~/Pict
 # lock | logout | suspend | reboot ...
 
 # set $Locker i3lock && sleep 1
-set $Locker "/usr/bin/xscreensaver-command -l"
+set $Locker "sleep 1 && /usr/bin/xscreensaver-command -l"
 #set $Locker i3lock -c 000000 -d -n -i ~/Pictures/backgrounds/8-bit-skull.png
 
 # xautolock (lock term)
@@ -472,17 +478,19 @@ bindsym $mod+Pause mode "$mode_system"
 bindsym $mod2+p exec $HOME/Scripts/rofipowermenu
 bindsym $mod2+Shift+s exec $HOME/Scripts/rofisearch
 bindsym $mod2+m exec $HOME/Scripts/rofimonitorlayout
-bindsym $mod2+r exec --no-startup-id urxvt -e bash -c 'recomposite'
+bindsym $mod2+r exec --no-startup-id termite -e bash -c 'recomposite'
 bindsym $mod2+s exec --no-startup-id rofi -show ssh
 bindsym $mod+w exec --no-startup-id rofi -show window
 # launch chromium
-bindsym $mod2+w exec "chromium --password-store=gnome"
+# bindsym $mod2+w exec "chromium --password-store=gnome"
+# launch brave
+bindsym $mod2+w exec "brave --password-store=gnome"
 # launch caja
 bindsym $mod2+c  exec --no-startup-id scratchpad caja_nodesktop 1100 700 caja
 #launch sublime text
-bindsym $mod2+b exec "subl3"
+#bindsym $mod2+b exec "subl3"
 # start ranger
-bindsym $mod2+e exec "urxvt -e ranger"
+bindsym $mod2+e exec "termite -e ranger"
 # start dofi (todo.txt using rofi)
 bindsym $mod2+t exec "dofi"
 # Mount usb
