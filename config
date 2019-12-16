@@ -423,7 +423,8 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # start items when login on specific workspaces
 # exec --no-startup-id i3-msg 'workspace $wsp1; exec i3-sensible-terminal'
 exec --no-startup-id i3-msg 'workspace $wsp1; exec termite'
-exec --no-startup-id i3-msg 'workspace $wsp2; exec brave --password-store=gnome'
+exec --no-startup-id i3-msg 'workspace $wsp2; exec brave'
+#--password-store=gnome'
 exec --no-startup-id i3-msg 'workspace $wsp9; exec sleep 200 && pidgin -f'
 #exec --no-startup-id i3-msg 'workspace $wsp6; exec urxvt -name irc -e $SHELL "/usr/bin/tmux -S /tmp/tmux-1000/default attach"'
 
@@ -484,7 +485,8 @@ bindsym $mod+w exec --no-startup-id rofi -show window
 # launch chromium
 # bindsym $mod2+w exec "chromium --password-store=gnome"
 # launch brave
-bindsym $mod2+w exec "brave --password-store=gnome"
+bindsym $mod2+w exec "brave"
+#--password-store=gnome"
 # launch caja
 bindsym $mod2+c  exec --no-startup-id scratchpad caja_nodesktop 1100 700 caja
 #launch sublime text
