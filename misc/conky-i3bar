@@ -74,22 +74,24 @@ conky.config = {
 --  "full_text": " ${exec weather --headers="Temperature" -q | awk '/Temperature/ {print $2}'}C ${exec weather --headers="Sky conditions" -q | awk '/Sky conditions/ {print $3 " " $4}'}07",
 --  "color": "\#9C9C9C"
 --},
+--  { "full_text" : " ${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
+
 
 };
 
 conky.text = [[
 
 [ \
-  { "full_text" : " ${exec ~/Scripts/mocconky.sh} [ vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : " ${exec pacmd list-sinks | grep volume | tail -n 3 | head -n 1 | cut -d " " -f6} ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${exec ~/.local/bin/mocconky} [ vol", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${exec pamixer --get-volume}% ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [ cpu ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [  ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${cpu cpu0}% ", "color" : ${if_match ${cpu cpu0}>50}"\#DC322F"${else}"\#40FF00"${endif}, "min_width" : 25, "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [  ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${memperc}%", "color" : ${if_match ${memperc}>50}"\#DC322F"${else}"\#40FF00"${endif}, "min_width" : 25, "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [  ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
   { "full_text" : "${fs_used_perc /}% ", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
 ${if_existing /sys/class/power_supply/AC/online 0}
@@ -102,14 +104,14 @@ ${if_existing /sys/class/power_supply/AC/online 0}
     {"full_text":"${else}"},\
     {"full_text":"${endif}${endif}${endif}"},\
 ${else}
-    {"full_text": "] [  ${battery_percent}%  ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+    {"full_text": "] [   ${battery_percent}%  ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 ${endif}
-  { "full_text" : "] [ ${if_up  wlp2s0}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [   ${if_up  wlan0}${exec iwgetid -r}${else} off${endif}", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "] [ ${exec cat /var/run/user/`id -u`/weather} ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
 \
-  { "full_text" : "] [", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
-  { "full_text" : "${time %d %B %Y %H:%M}", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : "] [ ", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 }, \
+  { "full_text" : " ${time %d %B %Y %H:%M}", "color" : "\#40FF00", "separator" : false, "separator_block_width" : 3 }, \
 \
   { "full_text" : "]", "color" : "\#EEE8D5", "separator" : false, "separator_block_width" : 3 } \
 ],
